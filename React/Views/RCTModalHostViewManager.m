@@ -9,6 +9,8 @@
 
 #import "RCTModalHostViewManager.h"
 
+#import <UIKit/UIKit.h>
+
 #import "RCTBridge.h"
 #import "RCTModalHostView.h"
 #import "RCTModalHostViewController.h"
@@ -35,10 +37,38 @@
 
 @end
 
+#if !TARGET_OS_TV
+static UIInterfaceOrientationMask _appSupportedOrientationMask;
+#endif
+
 @implementation RCTModalHostViewManager
 {
   NSHashTable *_hostViews;
 }
+
+#if !TARGET_OS_TV
+- (UIInterfaceOrientationMask)appSupportedOrientationMask
+{
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    NSArray *orientations = [NSBundle mainBundle].infoDictionary[@"UISupportedInterfaceOrientations"];
+    UIInterfaceOrientationMask mask = 0;
+    for (NSString *orientation in orientations) {
+      if ([orientation isEqualToString:@"UIInterfaceOrientationPortrait"]) {
+        mask |= 1 << UIInterfaceOrientationPortrait;
+      } else if ([orientation isEqualToString:@"UIInterfaceOrientationPortraitUpsideDown"]) {
+        mask |= 1 << UIInterfaceOrientationPortraitUpsideDown;
+      } else if ([orientation isEqualToString:@"UIInterfaceOrientationLandscapeLeft"]) {
+        mask |= 1 << UIInterfaceOrientationLandscapeLeft;
+      } else if ([orientation isEqualToString:@"UIInterfaceOrientationLandscapeRight"]) {
+        mask |= 1 << UIInterfaceOrientationLandscapeRight;
+      }
+    }
+    _appSupportedOrientationMask = mask;
+  });
+  return _appSupportedOrientationMask;
+}
+#endif
 
 RCT_EXPORT_MODULE()
 
@@ -46,6 +76,9 @@ RCT_EXPORT_MODULE()
 {
   RCTModalHostView *view = [[RCTModalHostView alloc] initWithBridge:self.bridge];
   view.delegate = self;
+#if !TARGET_OS_TV
+  view.appSupportedOrientationMask = [self appSupportedOrientationMask];
+#endif
   if (!_hostViews) {
     _hostViews = [NSHashTable weakObjectsHashTable];
   }
