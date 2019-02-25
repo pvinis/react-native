@@ -168,6 +168,10 @@ const APIExamples: Array<RNTesterExample> = [
     module: require('./ClipboardExample'),
   },
   {
+    key: 'CrashExample',
+    module: require('./CrashExample'),
+  },
+  {
     key: 'DatePickerAndroidExample',
     module: require('./DatePickerAndroidExample'),
   },
