@@ -14,6 +14,9 @@
 
 #import <FBReactNativeSpec/FBReactNativeSpec.h>
 
+static NSString *const kStatusBarFrameDidChange = @"statusBarFrameDidChange";
+static NSString *const kStatusBarFrameWillChange = @"statusBarFrameWillChange";
+
 @implementation RCTConvert (UIStatusBar)
 
 + (UIStatusBarStyle)UIStatusBarStyle:(id)json RCT_DYNAMIC
@@ -71,7 +74,7 @@ RCT_EXPORT_MODULE()
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[ @"statusBarFrameDidChange", @"statusBarFrameWillChange" ];
+  return @[ kStatusBarFrameDidChange, kStatusBarFrameWillChange ];
 }
 
 - (void)startObserving
@@ -108,12 +111,12 @@ RCT_EXPORT_MODULE()
 
 - (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification
 {
-  [self emitEvent:@"statusBarFrameDidChange" forNotification:notification];
+  [self emitEvent:kStatusBarFrameDidChange forNotification:notification];
 }
 
 - (void)applicationWillChangeStatusBarFrame:(NSNotification *)notification
 {
-  [self emitEvent:@"statusBarFrameWillChange" forNotification:notification];
+  [self emitEvent:kStatusBarFrameWillChange forNotification:notification];
 }
 
 RCT_EXPORT_METHOD(getHeight : (RCTResponseSenderBlock)callback)
@@ -158,7 +161,11 @@ RCT_EXPORT_METHOD(setHidden : (BOOL)hidden withAnimation : (NSString *)withAnima
 RCT_EXPORT_METHOD(setNetworkActivityIndicatorVisible : (BOOL)visible)
 {
   dispatch_async(dispatch_get_main_queue(), ^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // This is no longer supported in iOS 13 and later. We will remove this method in a future release.
     RCTSharedApplication().networkActivityIndicatorVisible = visible;
+#pragma clang diagnostic pop
   });
 }
 
@@ -167,7 +174,7 @@ RCT_EXPORT_METHOD(setNetworkActivityIndicatorVisible : (BOOL)visible)
   __block facebook::react::ModuleConstants<JS::NativeStatusBarManagerIOS::Constants> constants;
   RCTUnsafeExecuteOnMainQueueSync(^{
     constants = facebook::react::typedConstants<JS::NativeStatusBarManagerIOS::Constants>({
-        .HEIGHT = RCTSharedApplication().statusBarFrame.size.height,
+        .HEIGHT = RCTUIStatusBarManager().statusBarFrame.size.height,
         .DEFAULT_BACKGROUND_COLOR = std::nullopt,
     });
   });

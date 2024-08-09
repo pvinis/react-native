@@ -34,7 +34,7 @@ const Platform: PlatformType = {
       major: number,
       minor: number,
       patch: number,
-      prerelease: ?number,
+      prerelease: ?string,
     |},
     systemName: string,
     isMacCatalyst?: boolean,
@@ -56,6 +56,11 @@ const Platform: PlatformType = {
   get isTV(): boolean {
     // $FlowFixMe[object-this-reference]
     return this.constants.interfaceIdiom === 'tv';
+  },
+  // $FlowFixMe[unsafe-getters-setters]
+  get isVision(): boolean {
+    // $FlowFixMe[object-this-reference]
+    return this.constants.interfaceIdiom === 'vision';
   },
   // $FlowFixMe[unsafe-getters-setters]
   get isTesting(): boolean {

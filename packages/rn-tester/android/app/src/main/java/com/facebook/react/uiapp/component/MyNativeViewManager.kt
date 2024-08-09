@@ -9,7 +9,6 @@ package com.facebook.react.uiapp.component
 
 import android.graphics.Color
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
@@ -53,6 +52,10 @@ internal class MyNativeViewManager :
     view.removeOverlays()
   }
 
+  override fun fireLagacyStyleEvent(view: MyNativeView) {
+    view.emitLegacyStyleEvent()
+  }
+
   @ReactProp(name = ViewProps.OPACITY, defaultFloat = 1f)
   override fun setOpacity(view: MyNativeView, opacity: Float) {
     super.setOpacity(view, opacity)
@@ -66,12 +69,12 @@ internal class MyNativeViewManager :
   }
 
   override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> =
-      MapBuilder.builder<String, Any>()
-          .put(
-              "topIntArrayChanged",
-              MapBuilder.of<String, Any>(
-                  "phasedRegistrationNames",
-                  MapBuilder.of(
-                      "bubbled", "onIntArrayChanged", "captured", "onIntArrayChangedCapture")))
-          .build()
+      mapOf(
+          "topIntArrayChanged" to
+              mapOf(
+                  "phasedRegistrationNames" to
+                      mapOf(
+                          "bubbled" to "onIntArrayChanged",
+                          "captured" to "onIntArrayChangedCapture",
+                      )))
 }

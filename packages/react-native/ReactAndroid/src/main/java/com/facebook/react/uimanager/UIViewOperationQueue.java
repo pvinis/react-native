@@ -25,11 +25,12 @@ import com.facebook.react.bridge.RetryableMountingLayerException;
 import com.facebook.react.bridge.SoftAssertions;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.ReactConstants;
-import com.facebook.react.config.ReactFeatureFlags;
+import com.facebook.react.internal.featureflags.ReactNativeFeatureFlags;
 import com.facebook.react.modules.core.ReactChoreographer;
 import com.facebook.react.uimanager.debug.NotThreadSafeViewHierarchyUpdateDebugListener;
 import com.facebook.systrace.Systrace;
 import com.facebook.systrace.SystraceMessage;
+import com.facebook.yoga.YogaDirection;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,21 +119,31 @@ public class UIViewOperationQueue {
   private final class UpdateLayoutOperation extends ViewOperation {
 
     private final int mParentTag, mX, mY, mWidth, mHeight;
+    private final YogaDirection mLayoutDirection;
 
-    public UpdateLayoutOperation(int parentTag, int tag, int x, int y, int width, int height) {
+    public UpdateLayoutOperation(
+        int parentTag,
+        int tag,
+        int x,
+        int y,
+        int width,
+        int height,
+        YogaDirection layoutDirection) {
       super(tag);
       mParentTag = parentTag;
       mX = x;
       mY = y;
       mWidth = width;
       mHeight = height;
+      mLayoutDirection = layoutDirection;
       Systrace.startAsyncFlow(Systrace.TRACE_TAG_REACT_VIEW, "updateLayout", mTag);
     }
 
     @Override
     public void execute() {
       Systrace.endAsyncFlow(Systrace.TRACE_TAG_REACT_VIEW, "updateLayout", mTag);
-      mNativeViewHierarchyManager.updateLayout(mParentTag, mTag, mX, mY, mWidth, mHeight);
+      mNativeViewHierarchyManager.updateLayout(
+          mParentTag, mTag, mX, mY, mWidth, mHeight, mLayoutDirection);
     }
   }
 
@@ -340,32 +351,6 @@ public class UIViewOperationQueue {
     @Override
     public int getRetries() {
       return numRetries;
-    }
-  }
-
-  private final class ShowPopupMenuOperation extends ViewOperation {
-
-    private final ReadableArray mItems;
-    private final Callback mError;
-    private final Callback mSuccess;
-
-    public ShowPopupMenuOperation(int tag, ReadableArray items, Callback error, Callback success) {
-      super(tag);
-      mItems = items;
-      mError = error;
-      mSuccess = success;
-    }
-
-    @Override
-    public void execute() {
-      mNativeViewHierarchyManager.showPopupMenu(mTag, mItems, mSuccess, mError);
-    }
-  }
-
-  private final class DismissPopupMenuOperation implements UIOperation {
-    @Override
-    public void execute() {
-      mNativeViewHierarchyManager.dismissPopupMenu();
     }
   }
 
@@ -703,15 +688,6 @@ public class UIViewOperationQueue {
     mOperations.add(new UpdateViewExtraData(reactTag, extraData));
   }
 
-  public void enqueueShowPopupMenu(
-      int reactTag, ReadableArray items, Callback error, Callback success) {
-    mOperations.add(new ShowPopupMenuOperation(reactTag, items, error, success));
-  }
-
-  public void enqueueDismissPopupMenu() {
-    mOperations.add(new DismissPopupMenuOperation());
-  }
-
   public void enqueueCreateView(
       ThemedReactContext themedContext,
       int viewReactTag,
@@ -733,9 +709,26 @@ public class UIViewOperationQueue {
     mOperations.add(new UpdatePropertiesOperation(reactTag, props));
   }
 
+  /**
+   * @deprecated Use {@link #enqueueUpdateLayout(int, int, int, int, int, int, YogaDirection)}
+   *     instead.
+   */
+  @Deprecated
   public void enqueueUpdateLayout(
       int parentTag, int reactTag, int x, int y, int width, int height) {
-    mOperations.add(new UpdateLayoutOperation(parentTag, reactTag, x, y, width, height));
+    enqueueUpdateLayout(parentTag, reactTag, x, y, width, height, YogaDirection.INHERIT);
+  }
+
+  public void enqueueUpdateLayout(
+      int parentTag,
+      int reactTag,
+      int x,
+      int y,
+      int width,
+      int height,
+      YogaDirection layoutDirection) {
+    mOperations.add(
+        new UpdateLayoutOperation(parentTag, reactTag, x, y, width, height, layoutDirection));
   }
 
   public void enqueueManageChildren(
@@ -963,7 +956,7 @@ public class UIViewOperationQueue {
 
   /* package */ void resumeFrameCallback() {
     mIsDispatchUIFrameCallbackEnqueued = true;
-    if (!ReactFeatureFlags.enableFabricRendererExclusively) {
+    if (!ReactNativeFeatureFlags.enableFabricRendererExclusively()) {
       ReactChoreographer.getInstance()
           .postFrameCallback(ReactChoreographer.CallbackType.DISPATCH_UI, mDispatchUIFrameCallback);
     }

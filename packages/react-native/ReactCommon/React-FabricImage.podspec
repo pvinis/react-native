@@ -16,8 +16,10 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32'
-folly_version = '2024.01.01.00'
+folly_config = get_folly_config()
+folly_compiler_flags = folly_config[:compiler_flags]
+folly_version = folly_config[:version]
+
 folly_dep_name = 'RCT-Folly/Fabric'
 boost_compiler_flags = '-Wno-documentation'
 react_native_path = ".."
@@ -36,7 +38,7 @@ if ENV['USE_FRAMEWORKS']
     "\"$(PODS_TARGET_SRCROOT)\"",
     "\"$(PODS_TARGET_SRCROOT)/react/renderer/textlayoutmanager/platform/ios\"",
     "\"$(PODS_TARGET_SRCROOT)/react/renderer/components/textinput/platform/ios\"",
-    # "\"$(PODS_CONFIGURATION_BUILD_DIR)/React-Codegen/React_Codegen.framework/Headers\"",
+    # "\"$(PODS_CONFIGURATION_BUILD_DIR)/ReactCodegen/ReactCodegen.framework/Headers\"",
   ]
 end
 
@@ -54,7 +56,7 @@ Pod::Spec.new do |s|
   s.header_dir           = "react/renderer/components/image"
   s.compiler_flags       = folly_compiler_flags
   s.pod_target_xcconfig = { "USE_HEADERMAP" => "YES",
-                            "CLANG_CXX_LANGUAGE_STANDARD" => "c++20",
+                            "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard(),
                             "HEADER_SEARCH_PATHS" => header_search_path.join(" ")
                           }
 

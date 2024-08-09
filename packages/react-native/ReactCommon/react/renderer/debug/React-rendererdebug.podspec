@@ -16,8 +16,9 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32'
-folly_version = '2024.01.01.00'
+folly_config = get_folly_config()
+folly_compiler_flags = folly_config[:compiler_flags]
+folly_version = folly_config[:version]
 
 header_search_paths = [
     "\"$(PODS_ROOT)/RCT-Folly\"",
@@ -44,7 +45,7 @@ Pod::Spec.new do |s|
   s.header_dir             = "react/renderer/debug"
   s.exclude_files          = "tests"
   s.pod_target_xcconfig    = {
-    "CLANG_CXX_LANGUAGE_STANDARD" => "c++20",
+    "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard(),
     "HEADER_SEARCH_PATHS" => header_search_paths.join(' '),
     "DEFINES_MODULE" => "YES"
   }

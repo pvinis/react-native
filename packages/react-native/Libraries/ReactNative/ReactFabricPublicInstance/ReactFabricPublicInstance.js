@@ -13,9 +13,9 @@
  * instances and get some data from them (like their instance handle / fiber).
  */
 
-import type ReactNativeElement from '../../DOM/Nodes/ReactNativeElement';
-import type ReadOnlyText from '../../DOM/Nodes/ReadOnlyText';
-import typeof ReactFabricType from '../../Renderer/shims/ReactFabric';
+import type ReactNativeElement from '../../../src/private/webapis/dom/nodes/ReactNativeElement';
+import type ReadOnlyText from '../../../src/private/webapis/dom/nodes/ReadOnlyText';
+import typeof * as RendererProxyT from '../../ReactNative/RendererProxy';
 import type {
   InternalInstanceHandle,
   Node,
@@ -23,7 +23,7 @@ import type {
 } from '../../Renderer/shims/ReactNativeTypes';
 import type ReactFabricHostComponent from './ReactFabricHostComponent';
 
-import ReactNativeFeatureFlags from '../ReactNativeFeatureFlags';
+import * as ReactNativeFeatureFlags from '../../../src/private/featureflags/ReactNativeFeatureFlags';
 
 // Lazy loaded to avoid evaluating the module when using the legacy renderer.
 let PublicInstanceClass:
@@ -32,7 +32,7 @@ let PublicInstanceClass:
 let ReadOnlyTextClass: Class<ReadOnlyText>;
 
 // Lazy loaded to avoid evaluating the module when using the legacy renderer.
-let ReactFabric: ReactFabricType;
+let RendererProxy: RendererProxyT;
 
 export function createPublicInstance(
   tag: number,
@@ -44,7 +44,7 @@ export function createPublicInstance(
     // the right module to avoid eagerly loading both.
     if (ReactNativeFeatureFlags.enableAccessToHostTreeInFabric()) {
       PublicInstanceClass =
-        require('../../DOM/Nodes/ReactNativeElement').default;
+        require('../../../src/private/webapis/dom/nodes/ReactNativeElement').default;
     } else {
       PublicInstanceClass = require('./ReactFabricHostComponent').default;
     }
@@ -57,7 +57,8 @@ export function createPublicTextInstance(
   internalInstanceHandle: InternalInstanceHandle,
 ): ReadOnlyText {
   if (ReadOnlyTextClass == null) {
-    ReadOnlyTextClass = require('../../DOM/Nodes/ReadOnlyText').default;
+    ReadOnlyTextClass =
+      require('../../../src/private/webapis/dom/nodes/ReadOnlyText').default;
   }
 
   return new ReadOnlyTextClass(internalInstanceHandle);
@@ -77,10 +78,10 @@ export function getNodeFromPublicInstance(
     return null;
   }
 
-  if (ReactFabric == null) {
-    ReactFabric = require('../../Renderer/shims/ReactFabric');
+  if (RendererProxy == null) {
+    RendererProxy = require('../../ReactNative/RendererProxy');
   }
-  return ReactFabric.getNodeFromInternalInstanceHandle(
+  return RendererProxy.getNodeFromInternalInstanceHandle(
     publicInstance.__internalInstanceHandle,
   );
 }
@@ -88,5 +89,12 @@ export function getNodeFromPublicInstance(
 export function getInternalInstanceHandleFromPublicInstance(
   publicInstance: ReactFabricHostComponent | ReactNativeElement,
 ): InternalInstanceHandle {
+  // TODO(T174762768): Remove this once OSS versions of renderers will be synced.
+  // $FlowExpectedError[prop-missing] Keeping this for backwards-compatibility with the renderers versions in open source.
+  if (publicInstance._internalInstanceHandle != null) {
+    // $FlowExpectedError[incompatible-return] Keeping this for backwards-compatibility with the renderers versions in open source.
+    return publicInstance._internalInstanceHandle;
+  }
+
   return publicInstance.__internalInstanceHandle;
 }

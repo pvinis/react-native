@@ -9,6 +9,7 @@
  */
 
 'use strict';
+'use client';
 
 // APIs
 import typeof ActionSheetIOS from './Libraries/ActionSheetIOS/ActionSheetIOS';
@@ -43,6 +44,7 @@ import typeof TouchableNativeFeedback from './Libraries/Components/Touchable/Tou
 import typeof TouchableOpacity from './Libraries/Components/Touchable/TouchableOpacity';
 import typeof TouchableWithoutFeedback from './Libraries/Components/Touchable/TouchableWithoutFeedback';
 import typeof View from './Libraries/Components/View/View';
+import typeof RegisterCallableModule from './Libraries/Core/registerCallableModule';
 import typeof NativeEventEmitter from './Libraries/EventEmitter/NativeEventEmitter';
 import typeof RCTDeviceEventEmitter from './Libraries/EventEmitter/RCTDeviceEventEmitter';
 import typeof RCTNativeAppEventEmitter from './Libraries/EventEmitter/RCTNativeAppEventEmitter';
@@ -58,6 +60,7 @@ import typeof VirtualizedList from './Libraries/Lists/VirtualizedList';
 import typeof VirtualizedSectionList from './Libraries/Lists/VirtualizedSectionList';
 import typeof LogBox from './Libraries/LogBox/LogBox';
 import typeof Modal from './Libraries/Modal/Modal';
+// $FlowFixMe[invalid-exported-annotation]
 import typeof NativeDialogManagerAndroid from './Libraries/NativeModules/specs/NativeDialogManagerAndroid';
 import typeof Networking from './Libraries/Network/RCTNetworking';
 import typeof * as Systrace from './Libraries/Performance/Systrace';
@@ -97,6 +100,9 @@ const invariant = require('invariant');
 export type HostComponent<T> = _HostComponentInternal<T>;
 
 module.exports = {
+  get registerCallableModule(): RegisterCallableModule {
+    return require('./Libraries/Core/registerCallableModule').default;
+  },
   // Components
   get AccessibilityInfo(): AccessibilityInfo {
     return require('./Libraries/Components/AccessibilityInfo/AccessibilityInfo')
@@ -107,7 +113,7 @@ module.exports = {
       .default;
   },
   get Button(): Button {
-    return require('./Libraries/Components/Button');
+    return require('./Libraries/Components/Button').default;
   },
   // $FlowFixMe[value-as-type]
   get DrawerLayoutAndroid(): DrawerLayoutAndroid {
@@ -123,7 +129,8 @@ module.exports = {
     return require('./Libraries/Image/ImageBackground');
   },
   get InputAccessoryView(): InputAccessoryView {
-    return require('./Libraries/Components/TextInput/InputAccessoryView');
+    return require('./Libraries/Components/TextInput/InputAccessoryView')
+      .default;
   },
   get KeyboardAvoidingView(): KeyboardAvoidingView {
     return require('./Libraries/Components/Keyboard/KeyboardAvoidingView')
@@ -170,7 +177,7 @@ module.exports = {
     return require('./Libraries/Components/TextInput/TextInput');
   },
   get Touchable(): Touchable {
-    return require('./Libraries/Components/Touchable/Touchable');
+    return require('./Libraries/Components/Touchable/Touchable').default;
   },
   get TouchableHighlight(): TouchableHighlight {
     return require('./Libraries/Components/Touchable/TouchableHighlight');

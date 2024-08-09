@@ -24,7 +24,7 @@ type PlatformConstants = {
     major: number;
     minor: number;
     patch: number;
-    prerelease?: number | null | undefined;
+    prerelease?: string | null | undefined;
   };
 };
 interface PlatformStatic {
@@ -55,6 +55,7 @@ interface PlatformIOSStatic extends PlatformStatic {
   OS: 'ios';
   isPad: boolean;
   isTV: boolean;
+  isVision: boolean;
   isMacCatalyst?: boolean | undefined;
   Version: string;
 }

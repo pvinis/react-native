@@ -10,9 +10,11 @@ package com.facebook.react.uimanager;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.facebook.common.logging.FLog;
+import com.facebook.infer.annotation.Nullsafe;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.common.build.ReactBuildConfig;
 import com.facebook.react.config.ReactFeatureFlags;
+import com.facebook.react.internal.featureflags.ReactNativeFeatureFlags;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,7 +26,8 @@ import java.util.Set;
  * Helps generate constants map for {@link UIManagerModule} by collecting and merging constants from
  * registered view managers.
  */
-/* package */ class UIManagerModuleConstantsHelper {
+@Nullsafe(Nullsafe.Mode.LOCAL)
+public class UIManagerModuleConstantsHelper {
   private static final String TAG = "UIManagerModuleConstantsHelper";
   private static final String BUBBLING_EVENTS_KEY = "bubblingEventTypes";
   private static final String DIRECT_EVENTS_KEY = "directEventTypes";
@@ -43,14 +46,14 @@ import java.util.Set;
     return constants;
   }
 
-  /* package */ static Map<String, Object> getDefaultExportableEventTypes() {
+  public static Map<String, Object> getDefaultExportableEventTypes() {
     return MapBuilder.<String, Object>of(
         BUBBLING_EVENTS_KEY, UIManagerModuleConstants.getBubblingEventTypeConstants(),
         DIRECT_EVENTS_KEY, UIManagerModuleConstants.getDirectEventTypeConstants());
   }
 
   private static void validateDirectEventNames(
-      String viewManagerName, Map<String, Object> directEvents) {
+      String viewManagerName, @Nullable Map<String, Object> directEvents) {
     if (!ReactBuildConfig.DEBUG || directEvents == null) {
       return;
     }
@@ -132,11 +135,11 @@ import java.util.Set;
 
     Map viewManagerBubblingEvents = viewManager.getExportedCustomBubblingEventTypeConstants();
     if (viewManagerBubblingEvents != null) {
-      if (ReactFeatureFlags.enableFabricRenderer && ReactFeatureFlags.unstable_useFabricInterop) {
+      if (ReactFeatureFlags.enableFabricRenderer && ReactNativeFeatureFlags.useFabricInterop()) {
         // For Fabric, events needs to be fired with a "top" prefix.
         // For the sake of Fabric Interop, here we normalize events adding "top" in their
         // name if the user hasn't provided it.
-        normalizeEventTypes(viewManagerBubblingEvents);
+        viewManagerBubblingEvents = normalizeEventTypes(viewManagerBubblingEvents);
       }
       recursiveMerge(cumulativeBubblingEventTypes, viewManagerBubblingEvents);
       recursiveMerge(viewManagerBubblingEvents, defaultBubblingEvents);
@@ -148,11 +151,11 @@ import java.util.Set;
     Map viewManagerDirectEvents = viewManager.getExportedCustomDirectEventTypeConstants();
     validateDirectEventNames(viewManager.getName(), viewManagerDirectEvents);
     if (viewManagerDirectEvents != null) {
-      if (ReactFeatureFlags.enableFabricRenderer && ReactFeatureFlags.unstable_useFabricInterop) {
+      if (ReactFeatureFlags.enableFabricRenderer && ReactNativeFeatureFlags.useFabricInterop()) {
         // For Fabric, events needs to be fired with a "top" prefix.
         // For the sake of Fabric Interop, here we normalize events adding "top" in their
         // name if the user hasn't provided it.
-        normalizeEventTypes(viewManagerDirectEvents);
+        viewManagerDirectEvents = normalizeEventTypes(viewManagerDirectEvents);
       }
       recursiveMerge(cumulativeDirectEventTypes, viewManagerDirectEvents);
       recursiveMerge(viewManagerDirectEvents, defaultDirectEvents);
@@ -178,9 +181,9 @@ import java.util.Set;
   }
 
   @VisibleForTesting
-  /* package */ static void normalizeEventTypes(Map events) {
+  /* package */ static @Nullable Map normalizeEventTypes(@Nullable Map events) {
     if (events == null) {
-      return;
+      return null;
     }
     Set<String> keysToNormalize = new HashSet<>();
     for (Object key : events.keySet()) {
@@ -191,11 +194,25 @@ import java.util.Set;
         }
       }
     }
+    // When providing one event in Kotlin, it will create a SingletonMap by default
+    // which will throw on trying to add new element to it
+    if (!(events instanceof HashMap)) {
+      events = new HashMap(events);
+    }
     for (String oldKey : keysToNormalize) {
       Object value = events.get(oldKey);
-      String newKey = "top" + oldKey.substring(0, 1).toUpperCase() + oldKey.substring(1);
+      String baseKey = "";
+      if (oldKey.startsWith("on")) {
+        // Drop "on" prefix.
+        baseKey = oldKey.substring(2);
+      } else {
+        // Capitalize first letter.
+        baseKey = oldKey.substring(0, 1).toUpperCase() + oldKey.substring(1);
+      }
+      String newKey = "top" + baseKey;
       events.put(newKey, value);
     }
+    return events;
   }
 
   /** Merges {@param source} map into {@param dest} map recursively */

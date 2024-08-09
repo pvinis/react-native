@@ -16,8 +16,10 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32'
-folly_version = '2024.01.01.00'
+folly_config = get_folly_config()
+folly_compiler_flags = folly_config[:compiler_flags]
+folly_version = folly_config[:version]
+
 boost_compiler_flags = '-Wno-documentation'
 using_hermes = ENV['USE_HERMES'] == nil || ENV['USE_HERMES'] == "1"
 
@@ -45,8 +47,10 @@ Pod::Spec.new do |s|
   s.compiler_flags         = folly_compiler_flags + ' ' + boost_compiler_flags
   s.pod_target_xcconfig    = { "HEADER_SEARCH_PATHS" => header_search_paths,
                                "USE_HEADERMAP" => "YES",
-                               "CLANG_CXX_LANGUAGE_STANDARD" => "c++20",
+                               "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard(),
                                "GCC_WARN_PEDANTIC" => "YES" }
+  s.framework = "UIKit"
+
   if ENV['USE_FRAMEWORKS']
     s.header_mappings_dir     = './'
   end
@@ -62,7 +66,7 @@ Pod::Spec.new do |s|
   s.dependency "React-Core"
   s.dependency "React-cxxreact"
   s.dependency "React-jsi"
-  add_dependency(s, "React-Codegen", :additional_framework_paths => ["build/generated/ios"])
+  add_dependency(s, "ReactCodegen", :additional_framework_paths => ["build/generated/ios"])
   add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
   add_dependency(s, "React-NativeModulesApple", :additional_framework_paths => ["build/generated/ios"])
 
