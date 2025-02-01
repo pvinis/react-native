@@ -57,24 +57,6 @@ const testDefinitions: FeatureFlagDefinitions = {
 const definitions: FeatureFlagDefinitions = {
   common: {
     ...testDefinitions.common,
-    completeReactInstanceCreationOnBgThreadOnAndroid: {
-      defaultValue: true,
-      metadata: {
-        description:
-          'Do not wait for a main-thread dispatch to complete init to start executing work on the JS thread on Android',
-        expectedReleaseValue: true,
-        purpose: 'release',
-      },
-    },
-    disableEventLoopOnBridgeless: {
-      defaultValue: false,
-      metadata: {
-        description:
-          'The bridgeless architecture enables the event loop by default. This feature flag allows us to force disabling it in specific instances.',
-        expectedReleaseValue: true,
-        purpose: 'release',
-      },
-    },
     disableMountItemReorderingAndroid: {
       defaultValue: false,
       metadata: {
@@ -110,16 +92,6 @@ const definitions: FeatureFlagDefinitions = {
         dateAdded: '2024-09-13',
         description:
           'Enable prop iterator setter-style construction of Props in C++ (this flag is not used in Java).',
-        expectedReleaseValue: true,
-        purpose: 'experimentation',
-      },
-    },
-    enableDeletionOfUnmountedViews: {
-      defaultValue: false,
-      metadata: {
-        dateAdded: '2024-09-13',
-        description:
-          'Deletes views that were pre-allocated but never mounted on the screen.',
         expectedReleaseValue: true,
         purpose: 'experimentation',
       },
@@ -197,6 +169,14 @@ const definitions: FeatureFlagDefinitions = {
           'When enabled, Andoid will build and initiate image prefetch requests on ImageShadowNode::layout',
         expectedReleaseValue: true,
         purpose: 'experimentation',
+      },
+    },
+    enableJSRuntimeGCOnMemoryPressureOnIOS: {
+      defaultValue: false,
+      metadata: {
+        description: 'Trigger JS runtime GC on memory pressure event on iOS',
+        expectedReleaseValue: true,
+        purpose: 'release',
       },
     },
     enableLayoutAnimationsOnAndroid: {
@@ -343,13 +323,14 @@ const definitions: FeatureFlagDefinitions = {
         purpose: 'release',
       },
     },
-    initEagerTurboModulesOnNativeModulesQueueAndroid: {
-      defaultValue: true,
+    fuseboxNetworkInspectionEnabled: {
+      defaultValue: false,
       metadata: {
+        dateAdded: '2024-01-31',
         description:
-          'Construct modules that requires eager init on the dedicate native modules thread',
+          'Enable network inspection support in the React Native DevTools CDP backend. This flag is global and should not be changed across React Host lifetimes.',
         expectedReleaseValue: true,
-        purpose: 'release',
+        purpose: 'experimentation',
       },
     },
     lazyAnimationCallbacks: {
@@ -408,31 +389,12 @@ const definitions: FeatureFlagDefinitions = {
         purpose: 'release',
       },
     },
-    useImmediateExecutorInAndroidBridgeless: {
-      defaultValue: true,
-      metadata: {
-        description:
-          'Invoke callbacks immediately on the ReactInstance rather than going through a background thread for synchronization',
-        expectedReleaseValue: true,
-        purpose: 'release',
-      },
-    },
     useNativeViewConfigsInBridgelessMode: {
       defaultValue: false,
       metadata: {
         dateAdded: '2024-04-03',
         description:
           'When enabled, the native view configs are used in bridgeless mode.',
-        expectedReleaseValue: true,
-        purpose: 'experimentation',
-      },
-    },
-    useOptimisedViewPreallocationOnAndroid: {
-      defaultValue: false,
-      metadata: {
-        dateAdded: '2024-07-23',
-        description:
-          'Moves more of the work in view preallocation to the main thread to free up JS thread.',
         expectedReleaseValue: true,
         purpose: 'experimentation',
       },
@@ -521,30 +483,11 @@ const definitions: FeatureFlagDefinitions = {
         purpose: 'experimentation',
       },
     },
-    disableInteractionManagerInBatchinator: {
-      defaultValue: false,
-      metadata: {
-        dateAdded: '2024-11-18',
-        description:
-          'Skips InteractionManager in `Batchinator` and invokes callbacks synchronously.',
-        expectedReleaseValue: true,
-        purpose: 'experimentation',
-      },
-    },
     enableAccessToHostTreeInFabric: {
       defaultValue: false,
       metadata: {
         description:
           'Enables access to the host tree in Fabric using DOM-compatible APIs.',
-        expectedReleaseValue: true,
-        purpose: 'release',
-      },
-    },
-    enableAnimatedAllowlist: {
-      defaultValue: true,
-      metadata: {
-        description:
-          'Enables Animated to skip non-allowlisted props and styles.',
         expectedReleaseValue: true,
         purpose: 'release',
       },
@@ -559,13 +502,15 @@ const definitions: FeatureFlagDefinitions = {
         purpose: 'experimentation',
       },
     },
-    enableAnimatedPropsMemo: {
-      defaultValue: true,
+    enableDOMDocumentAPI: {
+      defaultValue: false,
       metadata: {
+        dateAdded: '2025-01-28',
         description:
-          'Enables Animated to analyze props to minimize invalidating `AnimatedProps`.',
+          'Enables the DOM Document API, exposing instaces of document through `getRootNode` and `ownerDocument`, and providing access to the `documentElement` representing the root node. ' +
+          'This flag will be short-lived, only to test the Document API specifically, and then it will be collapsed into the enableAccessToHostTreeInFabric flag.',
         expectedReleaseValue: true,
-        purpose: 'release',
+        purpose: 'experimentation',
       },
     },
     fixVirtualizeListCollapseWindowSize: {
@@ -585,6 +530,16 @@ const definitions: FeatureFlagDefinitions = {
           'Function used to enable / disabled Layout Animations in React Native.',
         expectedReleaseValue: true,
         purpose: 'release',
+      },
+    },
+    scheduleAnimatedCleanupInMicrotask: {
+      defaultValue: false,
+      metadata: {
+        dateAdded: '2025-01-22',
+        description:
+          'Changes the cleanup of`AnimatedProps` to occur in a microtask instead of synchronously during effect cleanup (for unmount) or subsequent mounts (for updates).',
+        expectedReleaseValue: true,
+        purpose: 'experimentation',
       },
     },
     shouldSkipStateUpdatesForLoopingAnimations: {
@@ -622,16 +577,6 @@ const definitions: FeatureFlagDefinitions = {
       metadata: {
         dateAdded: '2024-03-05',
         description: 'Enables use of setNativeProps in JS driven animations.',
-        expectedReleaseValue: true,
-        purpose: 'experimentation',
-      },
-    },
-    useInsertionEffectsForAnimations: {
-      defaultValue: false,
-      metadata: {
-        dateAdded: '2024-09-12',
-        description:
-          'Changes construction of the animation graph to `useInsertionEffect` instead of `useLayoutEffect`.',
         expectedReleaseValue: true,
         purpose: 'experimentation',
       },

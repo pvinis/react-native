@@ -85,6 +85,7 @@ function _executeAsAnimatedBatch(id: string, operation: () => void) {
  * See https://reactnative.dev/docs/animatedvalue
  */
 export default class AnimatedValue extends AnimatedWithChildren {
+  #listenerCount: number = 0;
   #updateSubscription: ?EventSubscription = null;
 
   _value: number;
@@ -106,20 +107,8 @@ export default class AnimatedValue extends AnimatedWithChildren {
     }
   }
 
-  __attach(): void {
+  __detach() {
     if (this.__isNative) {
-      // NOTE: In theory, we should only need to call this when any listeners
-      // are added. However, there is a global `onUserDrivenAnimationEnded`
-      // listener that relies on `onAnimatedValueUpdate` having fired to update
-      // the values in JavaScript. If that listener is removed, this could be
-      // re-optimized.
-      this.#ensureUpdateSubscriptionExists();
-    }
-  }
-
-  __detach(): void {
-    if (this.__isNative) {
-      this.#updateSubscription?.remove();
       NativeAnimatedAPI.getValue(this.__getNativeTag(), value => {
         this._value = value - this._offset;
       });
@@ -134,7 +123,34 @@ export default class AnimatedValue extends AnimatedWithChildren {
 
   __makeNative(platformConfig: ?PlatformConfig): void {
     super.__makeNative(platformConfig);
-    this.#ensureUpdateSubscriptionExists();
+    if (this.#listenerCount > 0) {
+      this.#ensureUpdateSubscriptionExists();
+    }
+  }
+
+  addListener(callback: (value: any) => mixed): string {
+    const id = super.addListener(callback);
+    this.#listenerCount++;
+    if (this.__isNative) {
+      this.#ensureUpdateSubscriptionExists();
+    }
+    return id;
+  }
+
+  removeListener(id: string): void {
+    super.removeListener(id);
+    this.#listenerCount--;
+    if (this.__isNative && this.#listenerCount === 0) {
+      this.#updateSubscription?.remove();
+    }
+  }
+
+  removeAllListeners(): void {
+    super.removeAllListeners();
+    this.#listenerCount = 0;
+    if (this.__isNative) {
+      this.#updateSubscription?.remove();
+    }
   }
 
   #ensureUpdateSubscriptionExists(): void {

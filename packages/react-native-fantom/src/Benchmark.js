@@ -19,10 +19,11 @@ import {
 } from 'tinybench';
 
 type SuiteOptions = $ReadOnly<{
-  ...Pick<
-    BenchOptions,
-    'iterations' | 'time' | 'warmup' | 'warmupIterations' | 'warmupTime',
-  >,
+  minIterations?: number,
+  minDuration?: number,
+  warmup?: boolean,
+  minWarmupDuration?: number,
+  minWarmupIterations?: number,
   disableOptimizedBuildCheck?: boolean,
 }>;
 
@@ -35,7 +36,7 @@ interface SuiteAPI {
 
 export function suite(
   suiteName: string,
-  suiteOptions?: ?SuiteOptions,
+  suiteOptions?: SuiteOptions = {},
 ): SuiteAPI {
   const tasks: Array<{
     name: string,
@@ -57,7 +58,7 @@ export function suite(
     // logic in the benchmark doesn't break.
     const isTestOnly = isRunningFromCI && verifyFns.length === 0;
 
-    const overriddenOptions: BenchOptions = isTestOnly
+    const benchOptions: BenchOptions = isTestOnly
       ? {
           warmupIterations: 1,
           warmupTime: 0,
@@ -66,15 +67,31 @@ export function suite(
         }
       : {};
 
-    const {disableOptimizedBuildCheck, ...benchOptions} = suiteOptions ?? {};
+    benchOptions.name = suiteName;
+    benchOptions.throws = true;
+    benchOptions.now = () => NativeCPUTime.getCPUTimeNanos() / 1000000;
 
-    const bench = new Bench({
-      ...benchOptions,
-      ...overriddenOptions,
-      name: suiteName,
-      throws: true,
-      now: () => NativeCPUTime.getCPUTimeNanos() / 1000000,
-    });
+    if (suiteOptions.minIterations != null) {
+      benchOptions.iterations = suiteOptions.minIterations;
+    }
+
+    if (suiteOptions.minDuration != null) {
+      benchOptions.time = suiteOptions.minDuration;
+    }
+
+    if (suiteOptions.warmup != null) {
+      benchOptions.warmup = suiteOptions.warmup;
+    }
+
+    if (suiteOptions.minWarmupDuration != null) {
+      benchOptions.warmupTime = suiteOptions.minWarmupDuration;
+    }
+
+    if (suiteOptions.minWarmupIterations != null) {
+      benchOptions.warmupIterations = suiteOptions.minWarmupIterations;
+    }
+
+    const bench = new Bench(benchOptions);
 
     for (const task of tasks) {
       bench.add(task.name, task.fn, task.options);
@@ -96,7 +113,7 @@ export function suite(
       );
     }
 
-    if (__DEV__ && disableOptimizedBuildCheck !== true) {
+    if (__DEV__ && suiteOptions.disableOptimizedBuildCheck !== true) {
       throw new Error('Benchmarks should not be run in development mode');
     }
   });
@@ -120,10 +137,14 @@ function printBenchmarkResults(bench: Bench) {
     (maxLength, task) => Math.max(maxLength, task.name.length),
     0,
   );
-  const separatorWidth = 121 + longestTaskNameLength - 'Task name'.length;
+  const separatorWidth = 137 + longestTaskNameLength - 'Task name'.length;
+  const benchmarkName = bench.name ?? 'Benchmark';
 
   console.log('-'.repeat(separatorWidth));
-  console.log(bench.name);
+  console.log(
+    `| ${benchmarkName}${' '.repeat(separatorWidth - (4 + benchmarkName.length))} |`,
+  );
+  console.log('-'.repeat(separatorWidth));
   console.table(nullthrows(bench.table()));
   console.log('-'.repeat(separatorWidth) + '\n');
 }
