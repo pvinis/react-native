@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<309be66ee7cccd6fca949015d8f19a8d>>
+ * @generated SignedSource<<646efad3c8769005e893ad63d78b8c6c>>
  */
 
 /**
@@ -59,8 +59,6 @@ public interface ReactNativeFeatureFlagsProvider {
 
   @DoNotStrip public fun enableLayoutAnimationsOnIOS(): Boolean
 
-  @DoNotStrip public fun enableLongTaskAPI(): Boolean
-
   @DoNotStrip public fun enableMainQueueModulesOnIOS(): Boolean
 
   @DoNotStrip public fun enableNativeCSSParsing(): Boolean
@@ -68,8 +66,6 @@ public interface ReactNativeFeatureFlagsProvider {
   @DoNotStrip public fun enableNewBackgroundAndBorderDrawables(): Boolean
 
   @DoNotStrip public fun enablePropsUpdateReconciliationAndroid(): Boolean
-
-  @DoNotStrip public fun enableReportEventPaintTime(): Boolean
 
   @DoNotStrip public fun enableSynchronousStateUpdates(): Boolean
 
@@ -83,8 +79,6 @@ public interface ReactNativeFeatureFlagsProvider {
 
   @DoNotStrip public fun fixMappingOfEventPrioritiesBetweenFabricAndReact(): Boolean
 
-  @DoNotStrip public fun fixMountingCoordinatorReportedPendingTransactionsOnAndroid(): Boolean
-
   @DoNotStrip public fun fuseboxEnabledRelease(): Boolean
 
   @DoNotStrip public fun fuseboxNetworkInspectionEnabled(): Boolean
@@ -92,6 +86,8 @@ public interface ReactNativeFeatureFlagsProvider {
   @DoNotStrip public fun removeTurboModuleManagerDelegateMutex(): Boolean
 
   @DoNotStrip public fun traceTurboModulePromiseRejectionsOnAndroid(): Boolean
+
+  @DoNotStrip public fun updateRuntimeShadowNodeReferencesOnCommit(): Boolean
 
   @DoNotStrip public fun useAlwaysAvailableJSErrorHandling(): Boolean
 
@@ -104,6 +100,8 @@ public interface ReactNativeFeatureFlagsProvider {
   @DoNotStrip public fun useOptimizedEventBatchingOnAndroid(): Boolean
 
   @DoNotStrip public fun useRawPropsJsiValue(): Boolean
+
+  @DoNotStrip public fun useShadowNodeStateOnClone(): Boolean
 
   @DoNotStrip public fun useTurboModuleInterop(): Boolean
 

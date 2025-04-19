@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<6baa33822323f25f949c627f7baedf68>>
+ * @generated SignedSource<<1933fe52e53c0af3d46ea46233ef9e02>>
  * @flow strict
  */
 
@@ -42,29 +42,28 @@ export interface Spec extends TurboModule {
   +enableJSRuntimeGCOnMemoryPressureOnIOS?: () => boolean;
   +enableLayoutAnimationsOnAndroid?: () => boolean;
   +enableLayoutAnimationsOnIOS?: () => boolean;
-  +enableLongTaskAPI?: () => boolean;
   +enableMainQueueModulesOnIOS?: () => boolean;
   +enableNativeCSSParsing?: () => boolean;
   +enableNewBackgroundAndBorderDrawables?: () => boolean;
   +enablePropsUpdateReconciliationAndroid?: () => boolean;
-  +enableReportEventPaintTime?: () => boolean;
   +enableSynchronousStateUpdates?: () => boolean;
   +enableViewCulling?: () => boolean;
   +enableViewRecycling?: () => boolean;
   +enableViewRecyclingForText?: () => boolean;
   +enableViewRecyclingForView?: () => boolean;
   +fixMappingOfEventPrioritiesBetweenFabricAndReact?: () => boolean;
-  +fixMountingCoordinatorReportedPendingTransactionsOnAndroid?: () => boolean;
   +fuseboxEnabledRelease?: () => boolean;
   +fuseboxNetworkInspectionEnabled?: () => boolean;
   +removeTurboModuleManagerDelegateMutex?: () => boolean;
   +traceTurboModulePromiseRejectionsOnAndroid?: () => boolean;
+  +updateRuntimeShadowNodeReferencesOnCommit?: () => boolean;
   +useAlwaysAvailableJSErrorHandling?: () => boolean;
   +useEditTextStockAndroidFocusBehavior?: () => boolean;
   +useFabricInterop?: () => boolean;
   +useNativeViewConfigsInBridgelessMode?: () => boolean;
   +useOptimizedEventBatchingOnAndroid?: () => boolean;
   +useRawPropsJsiValue?: () => boolean;
+  +useShadowNodeStateOnClone?: () => boolean;
   +useTurboModuleInterop?: () => boolean;
   +useTurboModules?: () => boolean;
 }

@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<ae5f943ca33b132f8ea336cddddee2ed>>
+ * @generated SignedSource<<8988a69695658c92f013e736dec8f5fc>>
  */
 
 /**
@@ -42,29 +42,28 @@ internal class ReactNativeFeatureFlagsLocalAccessor : ReactNativeFeatureFlagsAcc
   private var enableJSRuntimeGCOnMemoryPressureOnIOSCache: Boolean? = null
   private var enableLayoutAnimationsOnAndroidCache: Boolean? = null
   private var enableLayoutAnimationsOnIOSCache: Boolean? = null
-  private var enableLongTaskAPICache: Boolean? = null
   private var enableMainQueueModulesOnIOSCache: Boolean? = null
   private var enableNativeCSSParsingCache: Boolean? = null
   private var enableNewBackgroundAndBorderDrawablesCache: Boolean? = null
   private var enablePropsUpdateReconciliationAndroidCache: Boolean? = null
-  private var enableReportEventPaintTimeCache: Boolean? = null
   private var enableSynchronousStateUpdatesCache: Boolean? = null
   private var enableViewCullingCache: Boolean? = null
   private var enableViewRecyclingCache: Boolean? = null
   private var enableViewRecyclingForTextCache: Boolean? = null
   private var enableViewRecyclingForViewCache: Boolean? = null
   private var fixMappingOfEventPrioritiesBetweenFabricAndReactCache: Boolean? = null
-  private var fixMountingCoordinatorReportedPendingTransactionsOnAndroidCache: Boolean? = null
   private var fuseboxEnabledReleaseCache: Boolean? = null
   private var fuseboxNetworkInspectionEnabledCache: Boolean? = null
   private var removeTurboModuleManagerDelegateMutexCache: Boolean? = null
   private var traceTurboModulePromiseRejectionsOnAndroidCache: Boolean? = null
+  private var updateRuntimeShadowNodeReferencesOnCommitCache: Boolean? = null
   private var useAlwaysAvailableJSErrorHandlingCache: Boolean? = null
   private var useEditTextStockAndroidFocusBehaviorCache: Boolean? = null
   private var useFabricInteropCache: Boolean? = null
   private var useNativeViewConfigsInBridgelessModeCache: Boolean? = null
   private var useOptimizedEventBatchingOnAndroidCache: Boolean? = null
   private var useRawPropsJsiValueCache: Boolean? = null
+  private var useShadowNodeStateOnCloneCache: Boolean? = null
   private var useTurboModuleInteropCache: Boolean? = null
   private var useTurboModulesCache: Boolean? = null
 
@@ -248,16 +247,6 @@ internal class ReactNativeFeatureFlagsLocalAccessor : ReactNativeFeatureFlagsAcc
     return cached
   }
 
-  override fun enableLongTaskAPI(): Boolean {
-    var cached = enableLongTaskAPICache
-    if (cached == null) {
-      cached = currentProvider.enableLongTaskAPI()
-      accessedFeatureFlags.add("enableLongTaskAPI")
-      enableLongTaskAPICache = cached
-    }
-    return cached
-  }
-
   override fun enableMainQueueModulesOnIOS(): Boolean {
     var cached = enableMainQueueModulesOnIOSCache
     if (cached == null) {
@@ -294,16 +283,6 @@ internal class ReactNativeFeatureFlagsLocalAccessor : ReactNativeFeatureFlagsAcc
       cached = currentProvider.enablePropsUpdateReconciliationAndroid()
       accessedFeatureFlags.add("enablePropsUpdateReconciliationAndroid")
       enablePropsUpdateReconciliationAndroidCache = cached
-    }
-    return cached
-  }
-
-  override fun enableReportEventPaintTime(): Boolean {
-    var cached = enableReportEventPaintTimeCache
-    if (cached == null) {
-      cached = currentProvider.enableReportEventPaintTime()
-      accessedFeatureFlags.add("enableReportEventPaintTime")
-      enableReportEventPaintTimeCache = cached
     }
     return cached
   }
@@ -368,16 +347,6 @@ internal class ReactNativeFeatureFlagsLocalAccessor : ReactNativeFeatureFlagsAcc
     return cached
   }
 
-  override fun fixMountingCoordinatorReportedPendingTransactionsOnAndroid(): Boolean {
-    var cached = fixMountingCoordinatorReportedPendingTransactionsOnAndroidCache
-    if (cached == null) {
-      cached = currentProvider.fixMountingCoordinatorReportedPendingTransactionsOnAndroid()
-      accessedFeatureFlags.add("fixMountingCoordinatorReportedPendingTransactionsOnAndroid")
-      fixMountingCoordinatorReportedPendingTransactionsOnAndroidCache = cached
-    }
-    return cached
-  }
-
   override fun fuseboxEnabledRelease(): Boolean {
     var cached = fuseboxEnabledReleaseCache
     if (cached == null) {
@@ -414,6 +383,16 @@ internal class ReactNativeFeatureFlagsLocalAccessor : ReactNativeFeatureFlagsAcc
       cached = currentProvider.traceTurboModulePromiseRejectionsOnAndroid()
       accessedFeatureFlags.add("traceTurboModulePromiseRejectionsOnAndroid")
       traceTurboModulePromiseRejectionsOnAndroidCache = cached
+    }
+    return cached
+  }
+
+  override fun updateRuntimeShadowNodeReferencesOnCommit(): Boolean {
+    var cached = updateRuntimeShadowNodeReferencesOnCommitCache
+    if (cached == null) {
+      cached = currentProvider.updateRuntimeShadowNodeReferencesOnCommit()
+      accessedFeatureFlags.add("updateRuntimeShadowNodeReferencesOnCommit")
+      updateRuntimeShadowNodeReferencesOnCommitCache = cached
     }
     return cached
   }
@@ -474,6 +453,16 @@ internal class ReactNativeFeatureFlagsLocalAccessor : ReactNativeFeatureFlagsAcc
       cached = currentProvider.useRawPropsJsiValue()
       accessedFeatureFlags.add("useRawPropsJsiValue")
       useRawPropsJsiValueCache = cached
+    }
+    return cached
+  }
+
+  override fun useShadowNodeStateOnClone(): Boolean {
+    var cached = useShadowNodeStateOnCloneCache
+    if (cached == null) {
+      cached = currentProvider.useShadowNodeStateOnClone()
+      accessedFeatureFlags.add("useShadowNodeStateOnClone")
+      useShadowNodeStateOnCloneCache = cached
     }
     return cached
   }

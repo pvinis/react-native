@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<bcc9c131dcbfba523fe2b0938b4a8648>>
+ * @generated SignedSource<<1f3845a6aad6babd4404adfb433f4b38>>
  */
 
 /**
@@ -64,8 +64,6 @@ public object ReactNativeFeatureFlagsCxxInterop {
 
   @DoNotStrip @JvmStatic public external fun enableLayoutAnimationsOnIOS(): Boolean
 
-  @DoNotStrip @JvmStatic public external fun enableLongTaskAPI(): Boolean
-
   @DoNotStrip @JvmStatic public external fun enableMainQueueModulesOnIOS(): Boolean
 
   @DoNotStrip @JvmStatic public external fun enableNativeCSSParsing(): Boolean
@@ -73,8 +71,6 @@ public object ReactNativeFeatureFlagsCxxInterop {
   @DoNotStrip @JvmStatic public external fun enableNewBackgroundAndBorderDrawables(): Boolean
 
   @DoNotStrip @JvmStatic public external fun enablePropsUpdateReconciliationAndroid(): Boolean
-
-  @DoNotStrip @JvmStatic public external fun enableReportEventPaintTime(): Boolean
 
   @DoNotStrip @JvmStatic public external fun enableSynchronousStateUpdates(): Boolean
 
@@ -88,8 +84,6 @@ public object ReactNativeFeatureFlagsCxxInterop {
 
   @DoNotStrip @JvmStatic public external fun fixMappingOfEventPrioritiesBetweenFabricAndReact(): Boolean
 
-  @DoNotStrip @JvmStatic public external fun fixMountingCoordinatorReportedPendingTransactionsOnAndroid(): Boolean
-
   @DoNotStrip @JvmStatic public external fun fuseboxEnabledRelease(): Boolean
 
   @DoNotStrip @JvmStatic public external fun fuseboxNetworkInspectionEnabled(): Boolean
@@ -97,6 +91,8 @@ public object ReactNativeFeatureFlagsCxxInterop {
   @DoNotStrip @JvmStatic public external fun removeTurboModuleManagerDelegateMutex(): Boolean
 
   @DoNotStrip @JvmStatic public external fun traceTurboModulePromiseRejectionsOnAndroid(): Boolean
+
+  @DoNotStrip @JvmStatic public external fun updateRuntimeShadowNodeReferencesOnCommit(): Boolean
 
   @DoNotStrip @JvmStatic public external fun useAlwaysAvailableJSErrorHandling(): Boolean
 
@@ -109,6 +105,8 @@ public object ReactNativeFeatureFlagsCxxInterop {
   @DoNotStrip @JvmStatic public external fun useOptimizedEventBatchingOnAndroid(): Boolean
 
   @DoNotStrip @JvmStatic public external fun useRawPropsJsiValue(): Boolean
+
+  @DoNotStrip @JvmStatic public external fun useShadowNodeStateOnClone(): Boolean
 
   @DoNotStrip @JvmStatic public external fun useTurboModuleInterop(): Boolean
 

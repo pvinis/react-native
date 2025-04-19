@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<289424bf406db81cca78515eb71e8a84>>
+ * @generated SignedSource<<55680628f0480fce8c955fbde539ae47>>
  */
 
 /**
@@ -98,10 +98,6 @@ bool ReactNativeFeatureFlags::enableLayoutAnimationsOnIOS() {
   return getAccessor().enableLayoutAnimationsOnIOS();
 }
 
-bool ReactNativeFeatureFlags::enableLongTaskAPI() {
-  return getAccessor().enableLongTaskAPI();
-}
-
 bool ReactNativeFeatureFlags::enableMainQueueModulesOnIOS() {
   return getAccessor().enableMainQueueModulesOnIOS();
 }
@@ -116,10 +112,6 @@ bool ReactNativeFeatureFlags::enableNewBackgroundAndBorderDrawables() {
 
 bool ReactNativeFeatureFlags::enablePropsUpdateReconciliationAndroid() {
   return getAccessor().enablePropsUpdateReconciliationAndroid();
-}
-
-bool ReactNativeFeatureFlags::enableReportEventPaintTime() {
-  return getAccessor().enableReportEventPaintTime();
 }
 
 bool ReactNativeFeatureFlags::enableSynchronousStateUpdates() {
@@ -146,10 +138,6 @@ bool ReactNativeFeatureFlags::fixMappingOfEventPrioritiesBetweenFabricAndReact()
   return getAccessor().fixMappingOfEventPrioritiesBetweenFabricAndReact();
 }
 
-bool ReactNativeFeatureFlags::fixMountingCoordinatorReportedPendingTransactionsOnAndroid() {
-  return getAccessor().fixMountingCoordinatorReportedPendingTransactionsOnAndroid();
-}
-
 bool ReactNativeFeatureFlags::fuseboxEnabledRelease() {
   return getAccessor().fuseboxEnabledRelease();
 }
@@ -164,6 +152,10 @@ bool ReactNativeFeatureFlags::removeTurboModuleManagerDelegateMutex() {
 
 bool ReactNativeFeatureFlags::traceTurboModulePromiseRejectionsOnAndroid() {
   return getAccessor().traceTurboModulePromiseRejectionsOnAndroid();
+}
+
+bool ReactNativeFeatureFlags::updateRuntimeShadowNodeReferencesOnCommit() {
+  return getAccessor().updateRuntimeShadowNodeReferencesOnCommit();
 }
 
 bool ReactNativeFeatureFlags::useAlwaysAvailableJSErrorHandling() {
@@ -188,6 +180,10 @@ bool ReactNativeFeatureFlags::useOptimizedEventBatchingOnAndroid() {
 
 bool ReactNativeFeatureFlags::useRawPropsJsiValue() {
   return getAccessor().useRawPropsJsiValue();
+}
+
+bool ReactNativeFeatureFlags::useShadowNodeStateOnClone() {
+  return getAccessor().useShadowNodeStateOnClone();
 }
 
 bool ReactNativeFeatureFlags::useTurboModuleInterop() {

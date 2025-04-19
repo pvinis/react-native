@@ -235,16 +235,6 @@ const definitions: FeatureFlagDefinitions = {
       },
       ossReleaseStage: 'none',
     },
-    enableLongTaskAPI: {
-      defaultValue: false,
-      metadata: {
-        description:
-          'Enables the reporting of long tasks through `PerformanceObserver`. Only works if the event loop is enabled.',
-        expectedReleaseValue: true,
-        purpose: 'release',
-      },
-      ossReleaseStage: 'none',
-    },
     enableMainQueueModulesOnIOS: {
       defaultValue: false,
       metadata: {
@@ -285,16 +275,6 @@ const definitions: FeatureFlagDefinitions = {
           'When enabled, Android will receive prop updates based on the differences between the last rendered shadow node and the last committed shadow node.',
         expectedReleaseValue: true,
         purpose: 'experimentation',
-      },
-      ossReleaseStage: 'none',
-    },
-    enableReportEventPaintTime: {
-      defaultValue: false,
-      metadata: {
-        description:
-          'Report paint time inside the Event Timing API implementation (PerformanceObserver).',
-        expectedReleaseValue: true,
-        purpose: 'release',
       },
       ossReleaseStage: 'none',
     },
@@ -364,17 +344,6 @@ const definitions: FeatureFlagDefinitions = {
       },
       ossReleaseStage: 'none',
     },
-    fixMountingCoordinatorReportedPendingTransactionsOnAndroid: {
-      defaultValue: true,
-      metadata: {
-        dateAdded: '2024-08-27',
-        description:
-          'Fixes a limitation on Android where the mounting coordinator would report there are no pending transactions but some of them were actually not processed due to the use of the push model.',
-        expectedReleaseValue: true,
-        purpose: 'experimentation',
-      },
-      ossReleaseStage: 'stable',
-    },
     fuseboxEnabledRelease: {
       defaultValue: false,
       metadata: {
@@ -414,6 +383,17 @@ const definitions: FeatureFlagDefinitions = {
           'Enables storing js caller stack when creating promise in native module. This is useful in case of Promise rejection and tracing the cause.',
         expectedReleaseValue: true,
         purpose: 'operational',
+      },
+      ossReleaseStage: 'none',
+    },
+    updateRuntimeShadowNodeReferencesOnCommit: {
+      defaultValue: false,
+      metadata: {
+        dateAdded: '2025-04-15',
+        description:
+          'When enabled, runtime shadow node references will be updated during the commit. This allows running RSNRU from any thread without corrupting the renderer state.',
+        expectedReleaseValue: true,
+        purpose: 'experimentation',
       },
       ossReleaseStage: 'none',
     },
@@ -480,6 +460,17 @@ const definitions: FeatureFlagDefinitions = {
       },
       ossReleaseStage: 'none',
     },
+    useShadowNodeStateOnClone: {
+      defaultValue: false,
+      metadata: {
+        dateAdded: '2025-04-16',
+        description:
+          'Use the state stored on the source shadow node when cloning it instead of reading in the most recent state on the shadow node family.',
+        expectedReleaseValue: true,
+        purpose: 'experimentation',
+      },
+      ossReleaseStage: 'none',
+    },
     useTurboModuleInterop: {
       defaultValue: false,
       metadata: {
@@ -523,17 +514,6 @@ const definitions: FeatureFlagDefinitions = {
         dateAdded: '2024-02-05',
         description:
           'Enables an experimental mega-operation for Animated.js that replaces many calls to native with a single call into native, to reduce JSI/JNI traffic.',
-        expectedReleaseValue: true,
-        purpose: 'experimentation',
-      },
-      ossReleaseStage: 'none',
-    },
-    avoidAnimatedRefInvalidation: {
-      defaultValue: false,
-      metadata: {
-        dateAdded: '2025-03-12',
-        description:
-          'Changes `useAnimatedProps` to avoid invalidating the callback ref whenever `props` changes.',
         expectedReleaseValue: true,
         purpose: 'experimentation',
       },

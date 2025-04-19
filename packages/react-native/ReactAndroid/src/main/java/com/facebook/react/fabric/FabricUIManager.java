@@ -64,6 +64,7 @@ import com.facebook.react.fabric.mounting.mountitems.DispatchCommandMountItem;
 import com.facebook.react.fabric.mounting.mountitems.MountItem;
 import com.facebook.react.fabric.mounting.mountitems.MountItemFactory;
 import com.facebook.react.internal.featureflags.ReactNativeFeatureFlags;
+import com.facebook.react.internal.featureflags.ReactNativeNewArchitectureFeatureFlags;
 import com.facebook.react.internal.interop.InteropEventEmitter;
 import com.facebook.react.modules.core.ReactChoreographer;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
@@ -118,11 +119,11 @@ public class FabricUIManager
         long transactionEndDuration = commitPoint.getTransactionEndDuration();
         long batchExecutionDuration = commitPoint.getBatchExecutionDuration();
 
-        DevToolsReactPerfLogger.mStreamingCommitStats.add(commitDuration);
-        DevToolsReactPerfLogger.mStreamingLayoutStats.add(layoutDuration);
-        DevToolsReactPerfLogger.mStreamingDiffStats.add(diffDuration);
-        DevToolsReactPerfLogger.mStreamingTransactionEndStats.add(transactionEndDuration);
-        DevToolsReactPerfLogger.mStreamingBatchExecutionStats.add(batchExecutionDuration);
+        DevToolsReactPerfLogger.streamingCommitStats.add(commitDuration);
+        DevToolsReactPerfLogger.streamingLayoutStats.add(layoutDuration);
+        DevToolsReactPerfLogger.streamingDiffStats.add(diffDuration);
+        DevToolsReactPerfLogger.streamingTransactionEndStats.add(transactionEndDuration);
+        DevToolsReactPerfLogger.streamingBatchExecutionStats.add(batchExecutionDuration);
 
         FLog.i(
             TAG,
@@ -135,25 +136,25 @@ public class FabricUIManager
                 + " - Mounting: %d ms. Avg: %.2f. Median: %.2f ms. Max: %d ms.\n",
             commitPoint.getCommitNumber(),
             commitDuration,
-            DevToolsReactPerfLogger.mStreamingCommitStats.getAverage(),
-            DevToolsReactPerfLogger.mStreamingCommitStats.getMedian(),
-            DevToolsReactPerfLogger.mStreamingCommitStats.getMax(),
+            DevToolsReactPerfLogger.streamingCommitStats.getAverage(),
+            DevToolsReactPerfLogger.streamingCommitStats.getMedian(),
+            DevToolsReactPerfLogger.streamingCommitStats.getMax(),
             layoutDuration,
-            DevToolsReactPerfLogger.mStreamingLayoutStats.getAverage(),
-            DevToolsReactPerfLogger.mStreamingLayoutStats.getMedian(),
-            DevToolsReactPerfLogger.mStreamingLayoutStats.getMax(),
+            DevToolsReactPerfLogger.streamingLayoutStats.getAverage(),
+            DevToolsReactPerfLogger.streamingLayoutStats.getMedian(),
+            DevToolsReactPerfLogger.streamingLayoutStats.getMax(),
             diffDuration,
-            DevToolsReactPerfLogger.mStreamingDiffStats.getAverage(),
-            DevToolsReactPerfLogger.mStreamingDiffStats.getMedian(),
-            DevToolsReactPerfLogger.mStreamingDiffStats.getMax(),
+            DevToolsReactPerfLogger.streamingDiffStats.getAverage(),
+            DevToolsReactPerfLogger.streamingDiffStats.getMedian(),
+            DevToolsReactPerfLogger.streamingDiffStats.getMax(),
             transactionEndDuration,
-            DevToolsReactPerfLogger.mStreamingTransactionEndStats.getAverage(),
-            DevToolsReactPerfLogger.mStreamingTransactionEndStats.getMedian(),
-            DevToolsReactPerfLogger.mStreamingTransactionEndStats.getMax(),
+            DevToolsReactPerfLogger.streamingTransactionEndStats.getAverage(),
+            DevToolsReactPerfLogger.streamingTransactionEndStats.getMedian(),
+            DevToolsReactPerfLogger.streamingTransactionEndStats.getMax(),
             batchExecutionDuration,
-            DevToolsReactPerfLogger.mStreamingBatchExecutionStats.getAverage(),
-            DevToolsReactPerfLogger.mStreamingBatchExecutionStats.getMedian(),
-            DevToolsReactPerfLogger.mStreamingBatchExecutionStats.getMax());
+            DevToolsReactPerfLogger.streamingBatchExecutionStats.getAverage(),
+            DevToolsReactPerfLogger.streamingBatchExecutionStats.getMedian(),
+            DevToolsReactPerfLogger.streamingBatchExecutionStats.getMax());
       };
 
   static {
@@ -188,6 +189,8 @@ public class FabricUIManager
   private volatile boolean mDestroyed = false;
 
   private boolean mDriveCxxAnimations = false;
+
+  private boolean mDriveCxxNativeAnimated = ReactNativeFeatureFlags.cxxNativeAnimatedEnabled();
 
   private long mDispatchViewUpdatesTime = 0l;
   private long mCommitStartTime = 0l;
@@ -368,7 +371,7 @@ public class FabricUIManager
 
       ReactMarker.addFabricListener(mDevToolsReactPerfLogger);
     }
-    if (ReactNativeFeatureFlags.useFabricInterop()) {
+    if (ReactNativeNewArchitectureFeatureFlags.useFabricInterop()) {
       InteropEventEmitter interopEventEmitter = new InteropEventEmitter(mReactApplicationContext);
       mReactApplicationContext.internal_registerInteropModule(
           RCTEventEmitter.class, interopEventEmitter);
@@ -435,7 +438,7 @@ public class FabricUIManager
    * [addUiBlock] and [prependUiBlock] on UIManagerModule.
    */
   public void addUIBlock(UIBlock block) {
-    if (ReactNativeFeatureFlags.useFabricInterop()) {
+    if (ReactNativeNewArchitectureFeatureFlags.useFabricInterop()) {
       InteropUIBlockListener listener = getInteropUIBlockListener();
       listener.addUIBlock(block);
     }
@@ -446,7 +449,7 @@ public class FabricUIManager
    * [addUiBlock] and [prependUiBlock] on UIManagerModule.
    */
   public void prependUIBlock(UIBlock block) {
-    if (ReactNativeFeatureFlags.useFabricInterop()) {
+    if (ReactNativeNewArchitectureFeatureFlags.useFabricInterop()) {
       InteropUIBlockListener listener = getInteropUIBlockListener();
       listener.prependUIBlock(block);
     }
@@ -1074,7 +1077,7 @@ public class FabricUIManager
       final int reactTag,
       final String commandId,
       @Nullable final ReadableArray commandArgs) {
-    if (ReactNativeFeatureFlags.useFabricInterop()) {
+    if (ReactNativeNewArchitectureFeatureFlags.useFabricInterop()) {
       // For Fabric Interop, we check if the commandId is an integer. If it is, we use the integer
       // overload of dispatchCommand. Otherwise, we use the string overload.
       // and the events won't be correctly dispatched.
@@ -1372,7 +1375,7 @@ public class FabricUIManager
       // There is a race condition here between getting/setting
       // `mDriveCxxAnimations` which shouldn't matter; it's safe to call
       // the mBinding method, unless mBinding has gone away.
-      if (mDriveCxxAnimations && mBinding != null) {
+      if ((mDriveCxxAnimations || mDriveCxxNativeAnimated) && mBinding != null) {
         mBinding.driveCxxAnimations();
       }
 

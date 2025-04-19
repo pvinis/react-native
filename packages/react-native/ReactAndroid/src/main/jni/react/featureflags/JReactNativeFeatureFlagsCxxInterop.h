@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<2602019337e5b8bafb4babac6fa30638>>
+ * @generated SignedSource<<58c3ec4bdf7b171ea6203ed100116c50>>
  */
 
 /**
@@ -84,9 +84,6 @@ class JReactNativeFeatureFlagsCxxInterop
   static bool enableLayoutAnimationsOnIOS(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
-  static bool enableLongTaskAPI(
-    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
-
   static bool enableMainQueueModulesOnIOS(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
@@ -97,9 +94,6 @@ class JReactNativeFeatureFlagsCxxInterop
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
   static bool enablePropsUpdateReconciliationAndroid(
-    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
-
-  static bool enableReportEventPaintTime(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
   static bool enableSynchronousStateUpdates(
@@ -120,9 +114,6 @@ class JReactNativeFeatureFlagsCxxInterop
   static bool fixMappingOfEventPrioritiesBetweenFabricAndReact(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
-  static bool fixMountingCoordinatorReportedPendingTransactionsOnAndroid(
-    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
-
   static bool fuseboxEnabledRelease(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
@@ -133,6 +124,9 @@ class JReactNativeFeatureFlagsCxxInterop
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
   static bool traceTurboModulePromiseRejectionsOnAndroid(
+    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
+
+  static bool updateRuntimeShadowNodeReferencesOnCommit(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
   static bool useAlwaysAvailableJSErrorHandling(
@@ -151,6 +145,9 @@ class JReactNativeFeatureFlagsCxxInterop
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
   static bool useRawPropsJsiValue(
+    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
+
+  static bool useShadowNodeStateOnClone(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop>);
 
   static bool useTurboModuleInterop(

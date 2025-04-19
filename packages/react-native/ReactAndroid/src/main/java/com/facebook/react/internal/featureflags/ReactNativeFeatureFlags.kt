@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<dac4d84f1b143b2673198843ff1f6328>>
+ * @generated SignedSource<<794bf258fbb453ea71a39c5459316a24>>
  */
 
 /**
@@ -139,12 +139,6 @@ public object ReactNativeFeatureFlags {
   public fun enableLayoutAnimationsOnIOS(): Boolean = accessor.enableLayoutAnimationsOnIOS()
 
   /**
-   * Enables the reporting of long tasks through `PerformanceObserver`. Only works if the event loop is enabled.
-   */
-  @JvmStatic
-  public fun enableLongTaskAPI(): Boolean = accessor.enableLongTaskAPI()
-
-  /**
    * Makes modules requiring main queue setup initialize on the main thread, during React Native init.
    */
   @JvmStatic
@@ -167,12 +161,6 @@ public object ReactNativeFeatureFlags {
    */
   @JvmStatic
   public fun enablePropsUpdateReconciliationAndroid(): Boolean = accessor.enablePropsUpdateReconciliationAndroid()
-
-  /**
-   * Report paint time inside the Event Timing API implementation (PerformanceObserver).
-   */
-  @JvmStatic
-  public fun enableReportEventPaintTime(): Boolean = accessor.enableReportEventPaintTime()
 
   /**
    * Dispatches state updates synchronously in Fabric (e.g.: updates the scroll position in the shadow tree synchronously from the main thread).
@@ -211,12 +199,6 @@ public object ReactNativeFeatureFlags {
   public fun fixMappingOfEventPrioritiesBetweenFabricAndReact(): Boolean = accessor.fixMappingOfEventPrioritiesBetweenFabricAndReact()
 
   /**
-   * Fixes a limitation on Android where the mounting coordinator would report there are no pending transactions but some of them were actually not processed due to the use of the push model.
-   */
-  @JvmStatic
-  public fun fixMountingCoordinatorReportedPendingTransactionsOnAndroid(): Boolean = accessor.fixMountingCoordinatorReportedPendingTransactionsOnAndroid()
-
-  /**
    * Flag determining if the React Native DevTools (Fusebox) CDP backend should be enabled in release builds. This flag is global and should not be changed across React Host lifetimes.
    */
   @JvmStatic
@@ -239,6 +221,12 @@ public object ReactNativeFeatureFlags {
    */
   @JvmStatic
   public fun traceTurboModulePromiseRejectionsOnAndroid(): Boolean = accessor.traceTurboModulePromiseRejectionsOnAndroid()
+
+  /**
+   * When enabled, runtime shadow node references will be updated during the commit. This allows running RSNRU from any thread without corrupting the renderer state.
+   */
+  @JvmStatic
+  public fun updateRuntimeShadowNodeReferencesOnCommit(): Boolean = accessor.updateRuntimeShadowNodeReferencesOnCommit()
 
   /**
    * In Bridgeless mode, use the always available javascript error reporting pipeline.
@@ -275,6 +263,12 @@ public object ReactNativeFeatureFlags {
    */
   @JvmStatic
   public fun useRawPropsJsiValue(): Boolean = accessor.useRawPropsJsiValue()
+
+  /**
+   * Use the state stored on the source shadow node when cloning it instead of reading in the most recent state on the shadow node family.
+   */
+  @JvmStatic
+  public fun useShadowNodeStateOnClone(): Boolean = accessor.useShadowNodeStateOnClone()
 
   /**
    * In Bridgeless mode, should legacy NativeModules use the TurboModule system?

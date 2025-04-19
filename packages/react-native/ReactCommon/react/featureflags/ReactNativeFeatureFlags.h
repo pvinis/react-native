@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<a7a33656c2bd4e293c0e52cf1a410e8b>>
+ * @generated SignedSource<<136de88435026f3bfb2d785d1a12b707>>
  */
 
 /**
@@ -130,11 +130,6 @@ class ReactNativeFeatureFlags {
   RN_EXPORT static bool enableLayoutAnimationsOnIOS();
 
   /**
-   * Enables the reporting of long tasks through `PerformanceObserver`. Only works if the event loop is enabled.
-   */
-  RN_EXPORT static bool enableLongTaskAPI();
-
-  /**
    * Makes modules requiring main queue setup initialize on the main thread, during React Native init.
    */
   RN_EXPORT static bool enableMainQueueModulesOnIOS();
@@ -153,11 +148,6 @@ class ReactNativeFeatureFlags {
    * When enabled, Android will receive prop updates based on the differences between the last rendered shadow node and the last committed shadow node.
    */
   RN_EXPORT static bool enablePropsUpdateReconciliationAndroid();
-
-  /**
-   * Report paint time inside the Event Timing API implementation (PerformanceObserver).
-   */
-  RN_EXPORT static bool enableReportEventPaintTime();
 
   /**
    * Dispatches state updates synchronously in Fabric (e.g.: updates the scroll position in the shadow tree synchronously from the main thread).
@@ -190,11 +180,6 @@ class ReactNativeFeatureFlags {
   RN_EXPORT static bool fixMappingOfEventPrioritiesBetweenFabricAndReact();
 
   /**
-   * Fixes a limitation on Android where the mounting coordinator would report there are no pending transactions but some of them were actually not processed due to the use of the push model.
-   */
-  RN_EXPORT static bool fixMountingCoordinatorReportedPendingTransactionsOnAndroid();
-
-  /**
    * Flag determining if the React Native DevTools (Fusebox) CDP backend should be enabled in release builds. This flag is global and should not be changed across React Host lifetimes.
    */
   RN_EXPORT static bool fuseboxEnabledRelease();
@@ -213,6 +198,11 @@ class ReactNativeFeatureFlags {
    * Enables storing js caller stack when creating promise in native module. This is useful in case of Promise rejection and tracing the cause.
    */
   RN_EXPORT static bool traceTurboModulePromiseRejectionsOnAndroid();
+
+  /**
+   * When enabled, runtime shadow node references will be updated during the commit. This allows running RSNRU from any thread without corrupting the renderer state.
+   */
+  RN_EXPORT static bool updateRuntimeShadowNodeReferencesOnCommit();
 
   /**
    * In Bridgeless mode, use the always available javascript error reporting pipeline.
@@ -243,6 +233,11 @@ class ReactNativeFeatureFlags {
    * Instead of using folly::dynamic as internal representation in RawProps and RawValue, use jsi::Value
    */
   RN_EXPORT static bool useRawPropsJsiValue();
+
+  /**
+   * Use the state stored on the source shadow node when cloning it instead of reading in the most recent state on the shadow node family.
+   */
+  RN_EXPORT static bool useShadowNodeStateOnClone();
 
   /**
    * In Bridgeless mode, should legacy NativeModules use the TurboModule system?

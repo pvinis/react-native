@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<7dfd3c6be24565c6fcfd8c77222f4248>>
+ * @generated SignedSource<<176dd9398c3de7438ff6962cd3415dc8>>
  */
 
 /**
@@ -73,8 +73,6 @@ class NativeReactNativeFeatureFlags
 
   bool enableLayoutAnimationsOnIOS(jsi::Runtime& runtime);
 
-  bool enableLongTaskAPI(jsi::Runtime& runtime);
-
   bool enableMainQueueModulesOnIOS(jsi::Runtime& runtime);
 
   bool enableNativeCSSParsing(jsi::Runtime& runtime);
@@ -82,8 +80,6 @@ class NativeReactNativeFeatureFlags
   bool enableNewBackgroundAndBorderDrawables(jsi::Runtime& runtime);
 
   bool enablePropsUpdateReconciliationAndroid(jsi::Runtime& runtime);
-
-  bool enableReportEventPaintTime(jsi::Runtime& runtime);
 
   bool enableSynchronousStateUpdates(jsi::Runtime& runtime);
 
@@ -97,8 +93,6 @@ class NativeReactNativeFeatureFlags
 
   bool fixMappingOfEventPrioritiesBetweenFabricAndReact(jsi::Runtime& runtime);
 
-  bool fixMountingCoordinatorReportedPendingTransactionsOnAndroid(jsi::Runtime& runtime);
-
   bool fuseboxEnabledRelease(jsi::Runtime& runtime);
 
   bool fuseboxNetworkInspectionEnabled(jsi::Runtime& runtime);
@@ -106,6 +100,8 @@ class NativeReactNativeFeatureFlags
   bool removeTurboModuleManagerDelegateMutex(jsi::Runtime& runtime);
 
   bool traceTurboModulePromiseRejectionsOnAndroid(jsi::Runtime& runtime);
+
+  bool updateRuntimeShadowNodeReferencesOnCommit(jsi::Runtime& runtime);
 
   bool useAlwaysAvailableJSErrorHandling(jsi::Runtime& runtime);
 
@@ -118,6 +114,8 @@ class NativeReactNativeFeatureFlags
   bool useOptimizedEventBatchingOnAndroid(jsi::Runtime& runtime);
 
   bool useRawPropsJsiValue(jsi::Runtime& runtime);
+
+  bool useShadowNodeStateOnClone(jsi::Runtime& runtime);
 
   bool useTurboModuleInterop(jsi::Runtime& runtime);
 

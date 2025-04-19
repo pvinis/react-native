@@ -1005,10 +1005,15 @@ type TextInputBaseProps = $ReadOnly<{
    * unwanted edits without flicker.
    */
   value?: ?Stringish,
+
+  /**
+   * Align the input text to the left, center, or right sides of the input field.
+   */
+  textAlign?: ?('left' | 'center' | 'right'),
 }>;
 
 export type TextInputProps = $ReadOnly<{
-  ...$Diff<ViewProps, $ReadOnly<{style: ?ViewStyleProp}>>,
+  ...Omit<ViewProps, 'style'>,
   ...TextInputIOSProps,
   ...TextInputAndroidProps,
   ...TextInputBaseProps,

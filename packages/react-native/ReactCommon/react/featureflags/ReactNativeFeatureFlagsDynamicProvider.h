@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<4ff5efac6c63abe408c568b4898aa8ab>>
+ * @generated SignedSource<<f23c8066cc50499821cc75220acc3962>>
  */
 
 /**
@@ -207,15 +207,6 @@ class ReactNativeFeatureFlagsDynamicProvider : public ReactNativeFeatureFlagsDef
     return ReactNativeFeatureFlagsDefaults::enableLayoutAnimationsOnIOS();
   }
 
-  bool enableLongTaskAPI() override {
-    auto value = values_["enableLongTaskAPI"];
-    if (!value.isNull()) {
-      return value.getBool();
-    }
-
-    return ReactNativeFeatureFlagsDefaults::enableLongTaskAPI();
-  }
-
   bool enableMainQueueModulesOnIOS() override {
     auto value = values_["enableMainQueueModulesOnIOS"];
     if (!value.isNull()) {
@@ -250,15 +241,6 @@ class ReactNativeFeatureFlagsDynamicProvider : public ReactNativeFeatureFlagsDef
     }
 
     return ReactNativeFeatureFlagsDefaults::enablePropsUpdateReconciliationAndroid();
-  }
-
-  bool enableReportEventPaintTime() override {
-    auto value = values_["enableReportEventPaintTime"];
-    if (!value.isNull()) {
-      return value.getBool();
-    }
-
-    return ReactNativeFeatureFlagsDefaults::enableReportEventPaintTime();
   }
 
   bool enableSynchronousStateUpdates() override {
@@ -315,15 +297,6 @@ class ReactNativeFeatureFlagsDynamicProvider : public ReactNativeFeatureFlagsDef
     return ReactNativeFeatureFlagsDefaults::fixMappingOfEventPrioritiesBetweenFabricAndReact();
   }
 
-  bool fixMountingCoordinatorReportedPendingTransactionsOnAndroid() override {
-    auto value = values_["fixMountingCoordinatorReportedPendingTransactionsOnAndroid"];
-    if (!value.isNull()) {
-      return value.getBool();
-    }
-
-    return ReactNativeFeatureFlagsDefaults::fixMountingCoordinatorReportedPendingTransactionsOnAndroid();
-  }
-
   bool fuseboxEnabledRelease() override {
     auto value = values_["fuseboxEnabledRelease"];
     if (!value.isNull()) {
@@ -358,6 +331,15 @@ class ReactNativeFeatureFlagsDynamicProvider : public ReactNativeFeatureFlagsDef
     }
 
     return ReactNativeFeatureFlagsDefaults::traceTurboModulePromiseRejectionsOnAndroid();
+  }
+
+  bool updateRuntimeShadowNodeReferencesOnCommit() override {
+    auto value = values_["updateRuntimeShadowNodeReferencesOnCommit"];
+    if (!value.isNull()) {
+      return value.getBool();
+    }
+
+    return ReactNativeFeatureFlagsDefaults::updateRuntimeShadowNodeReferencesOnCommit();
   }
 
   bool useAlwaysAvailableJSErrorHandling() override {
@@ -412,6 +394,15 @@ class ReactNativeFeatureFlagsDynamicProvider : public ReactNativeFeatureFlagsDef
     }
 
     return ReactNativeFeatureFlagsDefaults::useRawPropsJsiValue();
+  }
+
+  bool useShadowNodeStateOnClone() override {
+    auto value = values_["useShadowNodeStateOnClone"];
+    if (!value.isNull()) {
+      return value.getBool();
+    }
+
+    return ReactNativeFeatureFlagsDefaults::useShadowNodeStateOnClone();
   }
 
   bool useTurboModuleInterop() override {

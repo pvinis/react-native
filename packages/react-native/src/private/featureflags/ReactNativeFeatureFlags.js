@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<4f1e4de5196d3bd22b774e1da6202e88>>
+ * @generated SignedSource<<23e97cba20fdf4afc991cbae70c57b1f>>
  * @flow strict
  */
 
@@ -30,7 +30,6 @@ export type ReactNativeFeatureFlagsJsOnly = $ReadOnly<{
   jsOnlyTestFlag: Getter<boolean>,
   animatedShouldDebounceQueueFlush: Getter<boolean>,
   animatedShouldUseSingleOp: Getter<boolean>,
-  avoidAnimatedRefInvalidation: Getter<boolean>,
   avoidStateUpdateInAnimatedPropsMemo: Getter<boolean>,
   disableInteractionManager: Getter<boolean>,
   enableAccessToHostTreeInFabric: Getter<boolean>,
@@ -65,29 +64,28 @@ export type ReactNativeFeatureFlags = $ReadOnly<{
   enableJSRuntimeGCOnMemoryPressureOnIOS: Getter<boolean>,
   enableLayoutAnimationsOnAndroid: Getter<boolean>,
   enableLayoutAnimationsOnIOS: Getter<boolean>,
-  enableLongTaskAPI: Getter<boolean>,
   enableMainQueueModulesOnIOS: Getter<boolean>,
   enableNativeCSSParsing: Getter<boolean>,
   enableNewBackgroundAndBorderDrawables: Getter<boolean>,
   enablePropsUpdateReconciliationAndroid: Getter<boolean>,
-  enableReportEventPaintTime: Getter<boolean>,
   enableSynchronousStateUpdates: Getter<boolean>,
   enableViewCulling: Getter<boolean>,
   enableViewRecycling: Getter<boolean>,
   enableViewRecyclingForText: Getter<boolean>,
   enableViewRecyclingForView: Getter<boolean>,
   fixMappingOfEventPrioritiesBetweenFabricAndReact: Getter<boolean>,
-  fixMountingCoordinatorReportedPendingTransactionsOnAndroid: Getter<boolean>,
   fuseboxEnabledRelease: Getter<boolean>,
   fuseboxNetworkInspectionEnabled: Getter<boolean>,
   removeTurboModuleManagerDelegateMutex: Getter<boolean>,
   traceTurboModulePromiseRejectionsOnAndroid: Getter<boolean>,
+  updateRuntimeShadowNodeReferencesOnCommit: Getter<boolean>,
   useAlwaysAvailableJSErrorHandling: Getter<boolean>,
   useEditTextStockAndroidFocusBehavior: Getter<boolean>,
   useFabricInterop: Getter<boolean>,
   useNativeViewConfigsInBridgelessMode: Getter<boolean>,
   useOptimizedEventBatchingOnAndroid: Getter<boolean>,
   useRawPropsJsiValue: Getter<boolean>,
+  useShadowNodeStateOnClone: Getter<boolean>,
   useTurboModuleInterop: Getter<boolean>,
   useTurboModules: Getter<boolean>,
 }>;
@@ -106,11 +104,6 @@ export const animatedShouldDebounceQueueFlush: Getter<boolean> = createJavaScrip
  * Enables an experimental mega-operation for Animated.js that replaces many calls to native with a single call into native, to reduce JSI/JNI traffic.
  */
 export const animatedShouldUseSingleOp: Getter<boolean> = createJavaScriptFlagGetter('animatedShouldUseSingleOp', false);
-
-/**
- * Changes `useAnimatedProps` to avoid invalidating the callback ref whenever `props` changes.
- */
-export const avoidAnimatedRefInvalidation: Getter<boolean> = createJavaScriptFlagGetter('avoidAnimatedRefInvalidation', false);
 
 /**
  * Changes `useAnimatedPropsMemo` to avoid state updates to invalidate the cached `AnimatedProps`.
@@ -234,10 +227,6 @@ export const enableLayoutAnimationsOnAndroid: Getter<boolean> = createNativeFlag
  */
 export const enableLayoutAnimationsOnIOS: Getter<boolean> = createNativeFlagGetter('enableLayoutAnimationsOnIOS', true);
 /**
- * Enables the reporting of long tasks through `PerformanceObserver`. Only works if the event loop is enabled.
- */
-export const enableLongTaskAPI: Getter<boolean> = createNativeFlagGetter('enableLongTaskAPI', false);
-/**
  * Makes modules requiring main queue setup initialize on the main thread, during React Native init.
  */
 export const enableMainQueueModulesOnIOS: Getter<boolean> = createNativeFlagGetter('enableMainQueueModulesOnIOS', false);
@@ -253,10 +242,6 @@ export const enableNewBackgroundAndBorderDrawables: Getter<boolean> = createNati
  * When enabled, Android will receive prop updates based on the differences between the last rendered shadow node and the last committed shadow node.
  */
 export const enablePropsUpdateReconciliationAndroid: Getter<boolean> = createNativeFlagGetter('enablePropsUpdateReconciliationAndroid', false);
-/**
- * Report paint time inside the Event Timing API implementation (PerformanceObserver).
- */
-export const enableReportEventPaintTime: Getter<boolean> = createNativeFlagGetter('enableReportEventPaintTime', false);
 /**
  * Dispatches state updates synchronously in Fabric (e.g.: updates the scroll position in the shadow tree synchronously from the main thread).
  */
@@ -282,10 +267,6 @@ export const enableViewRecyclingForView: Getter<boolean> = createNativeFlagGette
  */
 export const fixMappingOfEventPrioritiesBetweenFabricAndReact: Getter<boolean> = createNativeFlagGetter('fixMappingOfEventPrioritiesBetweenFabricAndReact', false);
 /**
- * Fixes a limitation on Android where the mounting coordinator would report there are no pending transactions but some of them were actually not processed due to the use of the push model.
- */
-export const fixMountingCoordinatorReportedPendingTransactionsOnAndroid: Getter<boolean> = createNativeFlagGetter('fixMountingCoordinatorReportedPendingTransactionsOnAndroid', true);
-/**
  * Flag determining if the React Native DevTools (Fusebox) CDP backend should be enabled in release builds. This flag is global and should not be changed across React Host lifetimes.
  */
 export const fuseboxEnabledRelease: Getter<boolean> = createNativeFlagGetter('fuseboxEnabledRelease', false);
@@ -301,6 +282,10 @@ export const removeTurboModuleManagerDelegateMutex: Getter<boolean> = createNati
  * Enables storing js caller stack when creating promise in native module. This is useful in case of Promise rejection and tracing the cause.
  */
 export const traceTurboModulePromiseRejectionsOnAndroid: Getter<boolean> = createNativeFlagGetter('traceTurboModulePromiseRejectionsOnAndroid', false);
+/**
+ * When enabled, runtime shadow node references will be updated during the commit. This allows running RSNRU from any thread without corrupting the renderer state.
+ */
+export const updateRuntimeShadowNodeReferencesOnCommit: Getter<boolean> = createNativeFlagGetter('updateRuntimeShadowNodeReferencesOnCommit', false);
 /**
  * In Bridgeless mode, use the always available javascript error reporting pipeline.
  */
@@ -325,6 +310,10 @@ export const useOptimizedEventBatchingOnAndroid: Getter<boolean> = createNativeF
  * Instead of using folly::dynamic as internal representation in RawProps and RawValue, use jsi::Value
  */
 export const useRawPropsJsiValue: Getter<boolean> = createNativeFlagGetter('useRawPropsJsiValue', false);
+/**
+ * Use the state stored on the source shadow node when cloning it instead of reading in the most recent state on the shadow node family.
+ */
+export const useShadowNodeStateOnClone: Getter<boolean> = createNativeFlagGetter('useShadowNodeStateOnClone', false);
 /**
  * In Bridgeless mode, should legacy NativeModules use the TurboModule system?
  */

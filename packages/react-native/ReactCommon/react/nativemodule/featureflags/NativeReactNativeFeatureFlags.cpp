@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<08f8d3073d62f515b0850936de189361>>
+ * @generated SignedSource<<35fca1602825c8a7b2e551388e0064cc>>
  */
 
 /**
@@ -134,11 +134,6 @@ bool NativeReactNativeFeatureFlags::enableLayoutAnimationsOnIOS(
   return ReactNativeFeatureFlags::enableLayoutAnimationsOnIOS();
 }
 
-bool NativeReactNativeFeatureFlags::enableLongTaskAPI(
-    jsi::Runtime& /*runtime*/) {
-  return ReactNativeFeatureFlags::enableLongTaskAPI();
-}
-
 bool NativeReactNativeFeatureFlags::enableMainQueueModulesOnIOS(
     jsi::Runtime& /*runtime*/) {
   return ReactNativeFeatureFlags::enableMainQueueModulesOnIOS();
@@ -157,11 +152,6 @@ bool NativeReactNativeFeatureFlags::enableNewBackgroundAndBorderDrawables(
 bool NativeReactNativeFeatureFlags::enablePropsUpdateReconciliationAndroid(
     jsi::Runtime& /*runtime*/) {
   return ReactNativeFeatureFlags::enablePropsUpdateReconciliationAndroid();
-}
-
-bool NativeReactNativeFeatureFlags::enableReportEventPaintTime(
-    jsi::Runtime& /*runtime*/) {
-  return ReactNativeFeatureFlags::enableReportEventPaintTime();
 }
 
 bool NativeReactNativeFeatureFlags::enableSynchronousStateUpdates(
@@ -194,11 +184,6 @@ bool NativeReactNativeFeatureFlags::fixMappingOfEventPrioritiesBetweenFabricAndR
   return ReactNativeFeatureFlags::fixMappingOfEventPrioritiesBetweenFabricAndReact();
 }
 
-bool NativeReactNativeFeatureFlags::fixMountingCoordinatorReportedPendingTransactionsOnAndroid(
-    jsi::Runtime& /*runtime*/) {
-  return ReactNativeFeatureFlags::fixMountingCoordinatorReportedPendingTransactionsOnAndroid();
-}
-
 bool NativeReactNativeFeatureFlags::fuseboxEnabledRelease(
     jsi::Runtime& /*runtime*/) {
   return ReactNativeFeatureFlags::fuseboxEnabledRelease();
@@ -217,6 +202,11 @@ bool NativeReactNativeFeatureFlags::removeTurboModuleManagerDelegateMutex(
 bool NativeReactNativeFeatureFlags::traceTurboModulePromiseRejectionsOnAndroid(
     jsi::Runtime& /*runtime*/) {
   return ReactNativeFeatureFlags::traceTurboModulePromiseRejectionsOnAndroid();
+}
+
+bool NativeReactNativeFeatureFlags::updateRuntimeShadowNodeReferencesOnCommit(
+    jsi::Runtime& /*runtime*/) {
+  return ReactNativeFeatureFlags::updateRuntimeShadowNodeReferencesOnCommit();
 }
 
 bool NativeReactNativeFeatureFlags::useAlwaysAvailableJSErrorHandling(
@@ -247,6 +237,11 @@ bool NativeReactNativeFeatureFlags::useOptimizedEventBatchingOnAndroid(
 bool NativeReactNativeFeatureFlags::useRawPropsJsiValue(
     jsi::Runtime& /*runtime*/) {
   return ReactNativeFeatureFlags::useRawPropsJsiValue();
+}
+
+bool NativeReactNativeFeatureFlags::useShadowNodeStateOnClone(
+    jsi::Runtime& /*runtime*/) {
+  return ReactNativeFeatureFlags::useShadowNodeStateOnClone();
 }
 
 bool NativeReactNativeFeatureFlags::useTurboModuleInterop(

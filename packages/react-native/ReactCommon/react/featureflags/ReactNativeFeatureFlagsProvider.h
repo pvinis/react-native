@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<81e0fe05dc4e2e2c7b76889c2e7321c5>>
+ * @generated SignedSource<<9dc34d10f6fcfe475b851db7db573015>>
  */
 
 /**
@@ -43,29 +43,28 @@ class ReactNativeFeatureFlagsProvider {
   virtual bool enableJSRuntimeGCOnMemoryPressureOnIOS() = 0;
   virtual bool enableLayoutAnimationsOnAndroid() = 0;
   virtual bool enableLayoutAnimationsOnIOS() = 0;
-  virtual bool enableLongTaskAPI() = 0;
   virtual bool enableMainQueueModulesOnIOS() = 0;
   virtual bool enableNativeCSSParsing() = 0;
   virtual bool enableNewBackgroundAndBorderDrawables() = 0;
   virtual bool enablePropsUpdateReconciliationAndroid() = 0;
-  virtual bool enableReportEventPaintTime() = 0;
   virtual bool enableSynchronousStateUpdates() = 0;
   virtual bool enableViewCulling() = 0;
   virtual bool enableViewRecycling() = 0;
   virtual bool enableViewRecyclingForText() = 0;
   virtual bool enableViewRecyclingForView() = 0;
   virtual bool fixMappingOfEventPrioritiesBetweenFabricAndReact() = 0;
-  virtual bool fixMountingCoordinatorReportedPendingTransactionsOnAndroid() = 0;
   virtual bool fuseboxEnabledRelease() = 0;
   virtual bool fuseboxNetworkInspectionEnabled() = 0;
   virtual bool removeTurboModuleManagerDelegateMutex() = 0;
   virtual bool traceTurboModulePromiseRejectionsOnAndroid() = 0;
+  virtual bool updateRuntimeShadowNodeReferencesOnCommit() = 0;
   virtual bool useAlwaysAvailableJSErrorHandling() = 0;
   virtual bool useEditTextStockAndroidFocusBehavior() = 0;
   virtual bool useFabricInterop() = 0;
   virtual bool useNativeViewConfigsInBridgelessMode() = 0;
   virtual bool useOptimizedEventBatchingOnAndroid() = 0;
   virtual bool useRawPropsJsiValue() = 0;
+  virtual bool useShadowNodeStateOnClone() = 0;
   virtual bool useTurboModuleInterop() = 0;
   virtual bool useTurboModules() = 0;
 };

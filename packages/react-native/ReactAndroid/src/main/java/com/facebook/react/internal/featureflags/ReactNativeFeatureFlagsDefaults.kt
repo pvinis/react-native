@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<b2ce97a43a2fdf285fe860183207474b>>
+ * @generated SignedSource<<6f24701d1581b744185caaee1ca5fc06>>
  */
 
 /**
@@ -59,8 +59,6 @@ public open class ReactNativeFeatureFlagsDefaults : ReactNativeFeatureFlagsProvi
 
   override fun enableLayoutAnimationsOnIOS(): Boolean = true
 
-  override fun enableLongTaskAPI(): Boolean = false
-
   override fun enableMainQueueModulesOnIOS(): Boolean = false
 
   override fun enableNativeCSSParsing(): Boolean = false
@@ -68,8 +66,6 @@ public open class ReactNativeFeatureFlagsDefaults : ReactNativeFeatureFlagsProvi
   override fun enableNewBackgroundAndBorderDrawables(): Boolean = false
 
   override fun enablePropsUpdateReconciliationAndroid(): Boolean = false
-
-  override fun enableReportEventPaintTime(): Boolean = false
 
   override fun enableSynchronousStateUpdates(): Boolean = false
 
@@ -83,8 +79,6 @@ public open class ReactNativeFeatureFlagsDefaults : ReactNativeFeatureFlagsProvi
 
   override fun fixMappingOfEventPrioritiesBetweenFabricAndReact(): Boolean = false
 
-  override fun fixMountingCoordinatorReportedPendingTransactionsOnAndroid(): Boolean = true
-
   override fun fuseboxEnabledRelease(): Boolean = false
 
   override fun fuseboxNetworkInspectionEnabled(): Boolean = false
@@ -92,6 +86,8 @@ public open class ReactNativeFeatureFlagsDefaults : ReactNativeFeatureFlagsProvi
   override fun removeTurboModuleManagerDelegateMutex(): Boolean = false
 
   override fun traceTurboModulePromiseRejectionsOnAndroid(): Boolean = false
+
+  override fun updateRuntimeShadowNodeReferencesOnCommit(): Boolean = false
 
   override fun useAlwaysAvailableJSErrorHandling(): Boolean = false
 
@@ -104,6 +100,8 @@ public open class ReactNativeFeatureFlagsDefaults : ReactNativeFeatureFlagsProvi
   override fun useOptimizedEventBatchingOnAndroid(): Boolean = false
 
   override fun useRawPropsJsiValue(): Boolean = false
+
+  override fun useShadowNodeStateOnClone(): Boolean = false
 
   override fun useTurboModuleInterop(): Boolean = false
 

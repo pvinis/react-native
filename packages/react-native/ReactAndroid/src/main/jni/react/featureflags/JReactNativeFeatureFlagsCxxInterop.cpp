@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<edc9dcff342dfb3f9e82437b8f295bb5>>
+ * @generated SignedSource<<cfbc50cc7a2ce2dbff3447c697d45797>>
  */
 
 /**
@@ -147,12 +147,6 @@ class ReactNativeFeatureFlagsJavaProvider
     return method(javaProvider_);
   }
 
-  bool enableLongTaskAPI() override {
-    static const auto method =
-        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enableLongTaskAPI");
-    return method(javaProvider_);
-  }
-
   bool enableMainQueueModulesOnIOS() override {
     static const auto method =
         getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enableMainQueueModulesOnIOS");
@@ -174,12 +168,6 @@ class ReactNativeFeatureFlagsJavaProvider
   bool enablePropsUpdateReconciliationAndroid() override {
     static const auto method =
         getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enablePropsUpdateReconciliationAndroid");
-    return method(javaProvider_);
-  }
-
-  bool enableReportEventPaintTime() override {
-    static const auto method =
-        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enableReportEventPaintTime");
     return method(javaProvider_);
   }
 
@@ -219,12 +207,6 @@ class ReactNativeFeatureFlagsJavaProvider
     return method(javaProvider_);
   }
 
-  bool fixMountingCoordinatorReportedPendingTransactionsOnAndroid() override {
-    static const auto method =
-        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("fixMountingCoordinatorReportedPendingTransactionsOnAndroid");
-    return method(javaProvider_);
-  }
-
   bool fuseboxEnabledRelease() override {
     static const auto method =
         getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("fuseboxEnabledRelease");
@@ -246,6 +228,12 @@ class ReactNativeFeatureFlagsJavaProvider
   bool traceTurboModulePromiseRejectionsOnAndroid() override {
     static const auto method =
         getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("traceTurboModulePromiseRejectionsOnAndroid");
+    return method(javaProvider_);
+  }
+
+  bool updateRuntimeShadowNodeReferencesOnCommit() override {
+    static const auto method =
+        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("updateRuntimeShadowNodeReferencesOnCommit");
     return method(javaProvider_);
   }
 
@@ -282,6 +270,12 @@ class ReactNativeFeatureFlagsJavaProvider
   bool useRawPropsJsiValue() override {
     static const auto method =
         getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("useRawPropsJsiValue");
+    return method(javaProvider_);
+  }
+
+  bool useShadowNodeStateOnClone() override {
+    static const auto method =
+        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("useShadowNodeStateOnClone");
     return method(javaProvider_);
   }
 
@@ -391,11 +385,6 @@ bool JReactNativeFeatureFlagsCxxInterop::enableLayoutAnimationsOnIOS(
   return ReactNativeFeatureFlags::enableLayoutAnimationsOnIOS();
 }
 
-bool JReactNativeFeatureFlagsCxxInterop::enableLongTaskAPI(
-    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
-  return ReactNativeFeatureFlags::enableLongTaskAPI();
-}
-
 bool JReactNativeFeatureFlagsCxxInterop::enableMainQueueModulesOnIOS(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
   return ReactNativeFeatureFlags::enableMainQueueModulesOnIOS();
@@ -414,11 +403,6 @@ bool JReactNativeFeatureFlagsCxxInterop::enableNewBackgroundAndBorderDrawables(
 bool JReactNativeFeatureFlagsCxxInterop::enablePropsUpdateReconciliationAndroid(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
   return ReactNativeFeatureFlags::enablePropsUpdateReconciliationAndroid();
-}
-
-bool JReactNativeFeatureFlagsCxxInterop::enableReportEventPaintTime(
-    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
-  return ReactNativeFeatureFlags::enableReportEventPaintTime();
 }
 
 bool JReactNativeFeatureFlagsCxxInterop::enableSynchronousStateUpdates(
@@ -451,11 +435,6 @@ bool JReactNativeFeatureFlagsCxxInterop::fixMappingOfEventPrioritiesBetweenFabri
   return ReactNativeFeatureFlags::fixMappingOfEventPrioritiesBetweenFabricAndReact();
 }
 
-bool JReactNativeFeatureFlagsCxxInterop::fixMountingCoordinatorReportedPendingTransactionsOnAndroid(
-    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
-  return ReactNativeFeatureFlags::fixMountingCoordinatorReportedPendingTransactionsOnAndroid();
-}
-
 bool JReactNativeFeatureFlagsCxxInterop::fuseboxEnabledRelease(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
   return ReactNativeFeatureFlags::fuseboxEnabledRelease();
@@ -474,6 +453,11 @@ bool JReactNativeFeatureFlagsCxxInterop::removeTurboModuleManagerDelegateMutex(
 bool JReactNativeFeatureFlagsCxxInterop::traceTurboModulePromiseRejectionsOnAndroid(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
   return ReactNativeFeatureFlags::traceTurboModulePromiseRejectionsOnAndroid();
+}
+
+bool JReactNativeFeatureFlagsCxxInterop::updateRuntimeShadowNodeReferencesOnCommit(
+    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
+  return ReactNativeFeatureFlags::updateRuntimeShadowNodeReferencesOnCommit();
 }
 
 bool JReactNativeFeatureFlagsCxxInterop::useAlwaysAvailableJSErrorHandling(
@@ -504,6 +488,11 @@ bool JReactNativeFeatureFlagsCxxInterop::useOptimizedEventBatchingOnAndroid(
 bool JReactNativeFeatureFlagsCxxInterop::useRawPropsJsiValue(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
   return ReactNativeFeatureFlags::useRawPropsJsiValue();
+}
+
+bool JReactNativeFeatureFlagsCxxInterop::useShadowNodeStateOnClone(
+    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
+  return ReactNativeFeatureFlags::useShadowNodeStateOnClone();
 }
 
 bool JReactNativeFeatureFlagsCxxInterop::useTurboModuleInterop(
@@ -602,9 +591,6 @@ void JReactNativeFeatureFlagsCxxInterop::registerNatives() {
         "enableLayoutAnimationsOnIOS",
         JReactNativeFeatureFlagsCxxInterop::enableLayoutAnimationsOnIOS),
       makeNativeMethod(
-        "enableLongTaskAPI",
-        JReactNativeFeatureFlagsCxxInterop::enableLongTaskAPI),
-      makeNativeMethod(
         "enableMainQueueModulesOnIOS",
         JReactNativeFeatureFlagsCxxInterop::enableMainQueueModulesOnIOS),
       makeNativeMethod(
@@ -616,9 +602,6 @@ void JReactNativeFeatureFlagsCxxInterop::registerNatives() {
       makeNativeMethod(
         "enablePropsUpdateReconciliationAndroid",
         JReactNativeFeatureFlagsCxxInterop::enablePropsUpdateReconciliationAndroid),
-      makeNativeMethod(
-        "enableReportEventPaintTime",
-        JReactNativeFeatureFlagsCxxInterop::enableReportEventPaintTime),
       makeNativeMethod(
         "enableSynchronousStateUpdates",
         JReactNativeFeatureFlagsCxxInterop::enableSynchronousStateUpdates),
@@ -638,9 +621,6 @@ void JReactNativeFeatureFlagsCxxInterop::registerNatives() {
         "fixMappingOfEventPrioritiesBetweenFabricAndReact",
         JReactNativeFeatureFlagsCxxInterop::fixMappingOfEventPrioritiesBetweenFabricAndReact),
       makeNativeMethod(
-        "fixMountingCoordinatorReportedPendingTransactionsOnAndroid",
-        JReactNativeFeatureFlagsCxxInterop::fixMountingCoordinatorReportedPendingTransactionsOnAndroid),
-      makeNativeMethod(
         "fuseboxEnabledRelease",
         JReactNativeFeatureFlagsCxxInterop::fuseboxEnabledRelease),
       makeNativeMethod(
@@ -652,6 +632,9 @@ void JReactNativeFeatureFlagsCxxInterop::registerNatives() {
       makeNativeMethod(
         "traceTurboModulePromiseRejectionsOnAndroid",
         JReactNativeFeatureFlagsCxxInterop::traceTurboModulePromiseRejectionsOnAndroid),
+      makeNativeMethod(
+        "updateRuntimeShadowNodeReferencesOnCommit",
+        JReactNativeFeatureFlagsCxxInterop::updateRuntimeShadowNodeReferencesOnCommit),
       makeNativeMethod(
         "useAlwaysAvailableJSErrorHandling",
         JReactNativeFeatureFlagsCxxInterop::useAlwaysAvailableJSErrorHandling),
@@ -670,6 +653,9 @@ void JReactNativeFeatureFlagsCxxInterop::registerNatives() {
       makeNativeMethod(
         "useRawPropsJsiValue",
         JReactNativeFeatureFlagsCxxInterop::useRawPropsJsiValue),
+      makeNativeMethod(
+        "useShadowNodeStateOnClone",
+        JReactNativeFeatureFlagsCxxInterop::useShadowNodeStateOnClone),
       makeNativeMethod(
         "useTurboModuleInterop",
         JReactNativeFeatureFlagsCxxInterop::useTurboModuleInterop),
